@@ -1,0 +1,108 @@
+
+           SALES AND BILLING*
+
+    // {
+    //   "Name":"sooraj",
+    //   "Shift":"3",
+    //   "TotalAmount":"gyg",
+    //   "ExcessAmount":"67678",
+    //   "Dinomination":
+    //   [{
+    //     "2000":"5",
+    //     "500":"54",
+    //     "200":"7",
+    //     "100":"87",
+    //     "50":"8",
+    //     "20":"78",
+    //     "10":"78",
+    //     "5":"87",
+    //     "2":"898",
+    //     "1":"879"
+    //     }]
+    //   "Product":
+    //   [{    
+    //     "OpeningReading":"54645",
+    //     "ClosingReading":"5685",
+    //     "Quantity":"699",
+    //     "RatePerLtr":"6786",
+    //     "Amount":"8686"
+    // }]
+    //   "Paymentmethod":
+    //   [{
+    //     "Method":"hjk",
+    //     "Amount":"897"
+    //  },
+    //  {
+    //     "Method":"hjk",
+    //     "Amount":"897"
+    //  }]
+    // }
+
+            TANK manage*
+
+    TankNumber:
+      Volume :
+      Product:
+      ProductCode:
+      Quantity:
+      note:
+
+
+
+              DIPSTOCK*
+
+ Date:
+InvoiceNumber:
+ VehicleNumber: {
+            type: String,
+            required: true,
+        },
+        AgentName: {
+            type: String,
+            required: true,
+        },
+        Product: {
+            type: Date,
+            required: true,
+        },
+        Quantity: {
+            type: String,
+            required: true,
+        },
+        Amount: {
+            type: String,
+            required: true,
+        },
+        Note: {
+            type: String,
+            required: true,
+        },
+        TotalQuantityFilled: {
+            type: Date,
+            required: true,
+        },
+        RemainingQuantity: {
+            type: String,
+            required: true,
+        },
+        PhoneNumber: {
+            type: String,
+            required: true,
+        },
+        LFRAmount: {
+            type: String,
+            required: true,
+        },
+        Rate: {
+            type: Date,
+            required: true,
+        },
+        VAT: {
+            type:Number,
+            required: true,
+        },
+        Cess: {
+            type: Number,
+            required: true,
+        },
+        TankDistribution:[
