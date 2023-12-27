@@ -227,6 +227,18 @@ module.exports = {
                 PhoneNumber: req.body.PhoneNumber,
                 Address: req.body.Address,
                 email: req.body.email,
+                Tank: req.body.Tank,
+                Employee: req.body.Employee,
+                Fuel: req.body.Fuel,
+                Customer: req.body.Customer,
+                InventoryManagement: req.body.InventoryManagement,
+                Product: req.body.Product,
+                SalesAndBilling: req.body.SalesAndBilling,
+                DipStock: req.body.DipStock,
+                Nozzle: req.body.Nozzle,
+                CardPayment: req.body.CardPayment,
+                UPIPayment: req.body.UPIPayment,
+                OtherPayment: req.body.OtherPayment
             });
             res.status(200).json("success");
         }
