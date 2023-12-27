@@ -135,14 +135,18 @@ const NozzleSchema = new mongoose.Schema(
       type: String,
 
     },
-    Opening: {
+     Reading: {
       type: String,
 
     },
-    Closing: {
-      type: String,
+    // Opening: {
+    //   type: String,
 
-    },
+    // },
+    // Closing: {
+    //   type: String,
+
+    // },
     FuelId: {
       type: String,
 
