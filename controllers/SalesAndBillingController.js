@@ -6,13 +6,15 @@ module.exports={
     try{
         const result=await SalesAndBilling.create({
             Name,
-            Shift, 
+            Shift,
             TotalAmount,
             ExcessAmount,
             Date,
             Dinomination,
             Product,
-            Paymentmethod
+            Cardpayment,
+            Upipayment,
+            Otherpayment
         });
         try {
             await Pump.findByIdAndUpdate(req.params.id, {
