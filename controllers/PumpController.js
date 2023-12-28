@@ -125,8 +125,6 @@ module.exports = {
         catch (err) {
             res.status(400).json({ err });
         }
-
-
     },
     createTank: async (req, res) => {
         const id = req.params.id
@@ -158,6 +156,18 @@ module.exports = {
         }
 
     },
+    getFuel: async (req,res) => {
+        const id = req.params.id
+        console.log("hifuel", id)
+        try{
+            const result2 = await Pump.findById(id)
+            const FuelResult = result2.Fuel
+            res.status(200).json({FuelResult})
+        }
+        catch(error){
+            res.status(400).json({error})
+        }
+    },
     createNozzle: async (req, res) => {
         const id = req.params.id
         try {
@@ -173,6 +183,18 @@ module.exports = {
         }
 
     },
+    getNozzle: async (req,res) => {
+        const id = req.params.id
+        console.log("hinozzle", id)
+        try{
+            const result2 = await Pump.findById(id)
+            const NozzleResult = result2.Nozzle
+            res.status(200).json({NozzleResult})
+        }
+        catch(error){
+           res.status(400).json({error})
+        }
+    },    
     createCardPayment: async (req, res) => {
         const id = req.params.id
         try {

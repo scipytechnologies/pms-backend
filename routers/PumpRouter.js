@@ -18,6 +18,8 @@ router.get('/getemployeebyid/:id',Pumpcontroller.getEmployee)
 router.get('/getinventoryManagementbyid/:id',Pumpcontroller.getInventoryManagement)
 router.get('/getproductbyid/:id',Pumpcontroller.getProduct)
 router.get('/getsalesAndBillingbyid/:id',Pumpcontroller.getSalesAndBilling)
+router.get('/getNozzlebyid/:id',Pumpcontroller.getNozzle)
+router.get('/getFuelbyid/:id',Pumpcontroller.getFuel)
 router.put('/updatepump/:id',Pumpcontroller.updatePump)
 router.delete('/deletepump/:id',Pumpcontroller.deletePump)
 module.exports = router;                                                
