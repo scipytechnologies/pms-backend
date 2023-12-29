@@ -168,6 +168,60 @@ module.exports = {
             res.status(400).json({error})
         }
     },
+    editFuel: async (req, res) => {
+        const pumpId = req.params.pumpId;
+        const fuelId = req.params.fuelId;
+    
+        try {
+            const result = await Pump.findOneAndUpdate(
+                { _id: pumpId, 'Fuel._id': fuelId },
+                {
+                    $set: {
+                        'Fuel.$.FuelName': req.body.FuelName,
+                        'Fuel.$.FuelPricePerLitre': req.body.FuelPricePerLitre,
+                    },
+                },
+                // { new: true } 
+            );
+    
+            console.log('fueledit:', result);
+    
+            if (!result) {
+                return res.status(404).json({ error: 'Pump or Fuel not found' });
+            }
+    
+            res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },  
+    deleteFuel: async (req, res) => {
+        const pumpId = req.params.pumpId;
+        const fuelId = req.params.fuelId;
+    
+        try {
+            const result = await Pump.findOneAndUpdate(
+                { _id: pumpId },
+                {
+                    $pull: {
+                        Fuel: { _id: fuelId },
+                    },
+                },
+            );
+    
+            console.log('fuel delete result:', result);
+    
+            if (!result) {
+                return res.status(404).json({ error: 'Pump or Fuel not found' });
+            }
+    
+            res.status(200).json(result);
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    },
     createNozzle: async (req, res) => {
         const id = req.params.id
         try {

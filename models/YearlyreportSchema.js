@@ -1,11 +1,8 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
-const yearlyreportSchema = new Schema({
-  Year:{
-    type:String,
-    required:true
-  },
-  MSQty:{
+
+const ProductSchema = new Schema({
+  MSQty: {
     type: String,
     required: true
   },
@@ -49,20 +46,29 @@ const yearlyreportSchema = new Schema({
     type: String,
     required: true
   },
-  OilAmount:{
+  OilAmount: {
     type: String,
     required: true
   },
-  PacketOil : {
+
+})
+
+const yearlyreportSchema = new Schema({
+  Year: {
+    type: String,
+    required: true
+  },
+  PacketOil: {
     type: String,
     required: true
   },
   TotalSale: {
     type: String,
     required: true
-  }
+  },
+  products:[ProductSchema],
 
 },
-{ timestamps: true }
+  { timestamps: true }
 )
 module.exports = mongoose.model("yearlyreport", yearlyreportSchema) 

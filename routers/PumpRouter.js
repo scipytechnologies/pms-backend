@@ -22,4 +22,6 @@ router.get('/getNozzlebyid/:id',Pumpcontroller.getNozzle)
 router.get('/getFuelbyid/:id',Pumpcontroller.getFuel)
 router.put('/updatepump/:id',Pumpcontroller.updatePump)
 router.delete('/deletepump/:id',Pumpcontroller.deletePump)
+router.put('/editFuel/:pumpId/:fuelId',Pumpcontroller.editFuel)
+router.delete('/deleteFuel/:pumpId/:fuelId',Pumpcontroller.deleteFuel)
 module.exports = router;                                                

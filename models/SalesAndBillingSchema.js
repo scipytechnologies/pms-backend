@@ -25,6 +25,14 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    Price: {
+      type: String,
+      required: true
+    },
+    Product: {
+     type: String,
+     required: true
+    }
   });
 const DenominationSchema = new mongoose.Schema(
   {
