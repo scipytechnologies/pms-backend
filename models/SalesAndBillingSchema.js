@@ -1,10 +1,10 @@
 const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema(
   {
-    OpeningReading: {
+    Opening: {
       type: String
     },
-    ClosingReading: {
+    Closing: {
       type: String
     },
     Quantity: {
@@ -67,7 +67,7 @@ const CardPaymentSchema = new mongoose.Schema(
     Machine: {
       type: String
     },
-    Amount: {
+    Price: {
       type: String
     },
 
@@ -77,7 +77,7 @@ const UpiPaymentSchema = new mongoose.Schema(
     Upiprovider: {
       type: String
     },
-    Amount: {
+    Price: {
       type: String
     },
 
@@ -87,7 +87,7 @@ const OtherPaymentSchema = new mongoose.Schema(
     Method: {
       type: String
     },
-    Amount: {
+    Price: {
       type: String
     }
   }
