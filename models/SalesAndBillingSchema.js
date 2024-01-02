@@ -2,28 +2,22 @@ const mongoose = require("mongoose");
 const ProductSchema = new mongoose.Schema(
   {
     OpeningReading: {
-      type: String,
-      required: true,
+      type: String
     },
     ClosingReading: {
-      type: String,
-      required: true,
+      type: String
     },
     Quantity: {
-      type: String,
-      required: true,
+      type: String
     },
     NozzleId: {
-      type: String,
-      required: true,
+      type: String
     },
     NozzleName: {
-      type: String,
-      required: true,
+      type: String
     },
     Amount: {
-      type: String,
-      required: true,
+      type: String
     },
     Price: {
       type: String,
@@ -37,104 +31,91 @@ const ProductSchema = new mongoose.Schema(
 const DenominationSchema = new mongoose.Schema(
   {
     TwoK: {
-      type: Number,
-      required: true,
+      type: Number
     },
     FiveH: {
-      type: Number,
-      required: true,
+      type: Number
     },
     TwoH: {
-      type: Number,
-      required: true,
+      type: Number
     },
     OneH: {
-      type: Number,
-      required: true,
+      type: Number
     },
     FiveT: {
-      type: Number,
-      required: true,
+      type: Number
     },
     TwoT: {
-      type: Number,
-      required: true,
+      type: Number
     },
     Ten: {
-      type: Number,
-      required: true,
+      type: Number
     },
     Five: {
-      type: Number,
-      required: true,
+      type: Number
     },
     Two: {
-      type: Number,
-      required: true,
+      type: Number
     },
     One: {
-      type: Number,
-      required: true,
+      type: Number
     },
 
   });
 const CardPaymentSchema = new mongoose.Schema(
   {
     Machine: {
-      type: String,
-      required: true,
+      type: String
     },
     Amount: {
-      type: String,
-      required: true,
+      type: String
     },
 
   });
 const UpiPaymentSchema = new mongoose.Schema(
   {
     Upiprovider: {
-      type: String,
-      required: true,
+      type: String
     },
     Amount: {
-      type: String,
-      required: true,
+      type: String
     },
 
   });
 const OtherPaymentSchema = new mongoose.Schema(
   {
     Method: {
-      type: String,
-      required: true,
+      type: String
     },
     Amount: {
-      type: String,
-      required: true,
+      type: String
     }
   }
 )
 const SalesAndBillingSchema = new mongoose.Schema(
   {
-    Name: {
+    PumpId:{
+      type:String,
+      required: true
+    },
+    Employee: {
+      type: String
+    },
+    EmployeeId: {
       type: String,
-      required: true,
+      required: true
     },
     Shift: {
-      type: String,
-      required: true,
+      type: String
     },
     TotalAmount: {
-      type: String,
-      required: true,
+      type: String
     },
     ExcessAmount: {
-      type: String,
-      required: true,
+      type: String
     },
     Date: {
-      type: String,
-      required: true,
+      type: String
     },
     Dinomination: [DenominationSchema],
     Product: [ProductSchema],

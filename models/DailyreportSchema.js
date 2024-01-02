@@ -27,7 +27,7 @@ const DailyreportSchema = new Schema({
         required: true
     },
     Fuel: {
-        type: String,
+        type: String,   
         required: true
     },
     OpeningReading: {
@@ -37,6 +37,10 @@ const DailyreportSchema = new Schema({
     ClosingReading: {
         type: String,
         required: true
+    },
+    date: {
+       type: Date,
+       required:true
     },
     products: [ProductSchema],
 },

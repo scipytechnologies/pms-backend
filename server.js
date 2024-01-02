@@ -13,6 +13,7 @@ const DipStockRouter=require('./routers/DipStockRouter')
 // const TankRouter=require('./routers/TankRouter')
 const InventoryManagementRouter=require('./routers/InventoryManagementRouter')
 const ProductRouter=require('./routers/ProductRouter')
+const DailyRouter = require("./routers/DailyRouter")
 
 
 app.use(cors())
@@ -26,6 +27,7 @@ app.use('/DipStockRouter',DipStockRouter)
 // app.use('/TankRouter',TankRouter)
 app.use('/InventoryManagementRouter',InventoryManagementRouter)
 app.use('/ProductRouter',ProductRouter)
+app.use('/DailyReport',DailyRouter)
 
 dotenv.config();
 
