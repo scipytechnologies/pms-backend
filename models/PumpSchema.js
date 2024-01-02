@@ -77,11 +77,27 @@ const ProductSchema = new mongoose.Schema(
   });
 const SalesAndBillingSchema = new mongoose.Schema(
   {
-    SalesAndBillingName: {
+    ID: {
       type: String,
 
     },
-    SalesAndBillingId: {
+    Date: {
+      type: String,
+
+    },
+    Employee: {
+      type: String,
+
+    },
+    EmployeeId: {
+      type: String,
+
+    },
+    Shift: {
+      type: String,
+
+    },
+    TotalAmount: {
       type: String,
 
     },
