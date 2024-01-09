@@ -24,4 +24,8 @@ router.put('/updatepump/:id',Pumpcontroller.updatePump)
 router.delete('/deletepump/:id',Pumpcontroller.deletePump)
 router.put('/editFuel/:pumpId/:fuelId',Pumpcontroller.editFuel)
 router.delete('/deleteFuel/:pumpId/:fuelId',Pumpcontroller.deleteFuel)
+router.put('/createShift/:id',Pumpcontroller.createShift)
+router.get('/getShift/:id',Pumpcontroller.getShift)
+router.put('/editShift/:pumpId/:shiftId',Pumpcontroller.editShift)
+router.delete('/deleteShift/:pumpId/:shiftId',Pumpcontroller.deleteShift)
 module.exports = router;                                                

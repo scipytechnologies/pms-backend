@@ -8,6 +8,6 @@ router.post('/createcustomer/:id',Customercontroller.createCustomer)
 router.get('/getcustomer',Customercontroller.getCustomer)
 router.get('/getcustomerbyid/:id',Customercontroller.getCustomerById)
 router.put('/updatecustomer/:id',Customercontroller.updateCustomer)
-router.delete('/deletecustomer/:id',Customercontroller.deleteCustomer)
+router.delete('/deletecustomer/:pumpId/:customerId',Customercontroller.deleteCustomer)
 
 module.exports = router;                                                
