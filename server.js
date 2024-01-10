@@ -14,6 +14,8 @@ const DipStockRouter=require('./routers/DipStockRouter')
 const InventoryManagementRouter=require('./routers/InventoryManagementRouter')
 const ProductRouter=require('./routers/ProductRouter')
 const DailyRouter = require("./routers/DailyRouter")
+const MonthlyReport = require("./routers/MonthlyRouter")
+const YearlyReport = require("./routers/YearlyRouter")
 
 
 app.use(cors())
@@ -28,6 +30,8 @@ app.use('/DipStockRouter',DipStockRouter)
 app.use('/InventoryManagementRouter',InventoryManagementRouter)
 app.use('/ProductRouter',ProductRouter)
 app.use('/DailyReport',DailyRouter)
+app.use('/MonthlyReport', MonthlyReport)
+app.use('/YearlyReport',YearlyReport)
 
 dotenv.config();
 

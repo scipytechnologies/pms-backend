@@ -163,7 +163,7 @@ const NozzleSchema = new mongoose.Schema(
       type: String,
 
     },
-     Reading: {
+    Reading: {
       type: String,
 
     },
@@ -179,7 +179,19 @@ const NozzleSchema = new mongoose.Schema(
       type: String,
 
     },
-  });
+  }
+);
+const ShiftSchema = new mongoose.Schema({
+  ShiftName: {
+    type: String
+  },
+  From: {
+    type: String
+  },
+  To: {
+    type: String
+  }
+}) 
 const PumpSchema = new Schema(
   {
     PumpName: {
@@ -209,7 +221,8 @@ const PumpSchema = new Schema(
     Nozzle: [NozzleSchema],
     CardPayment: [CardPaymentSchema],
     UPIPayment: [UPIPaymentSchema],
-    OtherPayment: [OtherPaymentSchema]
+    OtherPayment: [OtherPaymentSchema],
+    Shift: [ShiftSchema]
   },
   { timestamps: true }
 );
