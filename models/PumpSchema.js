@@ -41,6 +41,18 @@ const EmployeeSchema = new mongoose.Schema(
       type: String,
 
     },
+    Designation: {
+      type: String,
+
+    },
+    DOB: {
+      type: String,
+
+    },
+    PhoneNumber: {
+      type: String,
+
+    },
   });
 const CustomerSchema = new mongoose.Schema(
   {
