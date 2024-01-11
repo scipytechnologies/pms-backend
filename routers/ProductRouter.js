@@ -8,6 +8,6 @@ router.post('/createProduct/:id',ProductController.createProduct)
 router.get('/getProduct',ProductController.getProduct)
 router.get('/getProductById/:id',ProductController.getProductById)
 router.put('/updateProduct/:id',ProductController.updateProduct)
-router.delete('/deleteProduct/:id',ProductController.deleteProduct)
+router.delete('/deleteProduct/:categoryId/:id',ProductController.deleteProduct)
 
 module.exports = router;                                                

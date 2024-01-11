@@ -8,6 +8,6 @@ router.post('/createemployee/:id',Employeecontroller.createEmployee)
 router.get('/getemployee',Employeecontroller.getEmployee)
 router.get('/getemployeebyid/:id',Employeecontroller.getEmployeeById)
 router.put('/updateemployee/:id',Employeecontroller.updateEmployee)
-router.delete('/deleteemployee/:id',Employeecontroller.deleteEmployee)
+router.delete('/deleteemployee/:pumpId/:employeeId',Employeecontroller.deleteEmployee)
 
 module.exports = router;                                                 
