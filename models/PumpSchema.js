@@ -58,11 +58,15 @@ const CustomerSchema = new mongoose.Schema(
   {
     CustomerName: {
       type: String,
-
     },
     CustomerId: {
       type: String,
-
+    },
+    MobileNo: {
+      type: String,
+    },
+    CreditBalance: {
+      type: String,
     },
   });
 const InventoryManagementSchema = new mongoose.Schema(

@@ -15,13 +15,15 @@ module.exports = {
                 CreditBalance,
                 CreditLimit,
                 Note
-            });
+            });  
             try {
                 await Pump.findByIdAndUpdate(req.params.id, {
                     $push: {
                         Customer: [{
                             CustomerId: result._id,
-                            CustomerName: result.Name
+                            CustomerName: result.Name,
+                            MobileNo : result.MobileNo,
+                            CreditBalance : result.CreditBalance,
                         }]
                     }
                 });
