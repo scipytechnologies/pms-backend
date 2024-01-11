@@ -36,6 +36,9 @@ module.exports = {
                     $push: {
                         Employee: [{
                             EmployeeId: result._id,
+                            Designation: result.Designation,
+                            DOB:result.DOB,
+                            PhoneNumber:result.PhoneNumber,
                             EmployeeName: result.FirstName + " " + result.LastName
                         }]
                     }

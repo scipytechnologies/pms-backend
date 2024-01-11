@@ -12,15 +12,21 @@ module.exports = {
       Date,
       Dinomination,
       Product,
-      Cardpayment,
-      Upipayment,
-      Otherpayment,
+      CardPayment,
+      UpiPayment,
+      OthersPayment,
+      TotalAmountRec,
+      Credit
     } = req.body;
 
+    console.log(req.body);
     try {
       const result = await SalesAndBilling.create({
         PumpId,
         Employee,
+        Cardpayment :CardPayment,
+        Upipayment : UpiPayment,
+        Otherpayment : OthersPayment,
         EmployeeId,
         Shift,
         TotalAmount,
@@ -28,10 +34,11 @@ module.exports = {
         Date,
         Dinomination,
         Product,
-        Cardpayment, // Make sure Cardpayment is defined in req.body
-        Upipayment, // Make sure Upipayment is defined in req.body
-        Otherpayment, // Make sure Otherpayment is defined in req.body
+        TotalAmountRec,
+        Credit
       });
+
+      console.log(result);
 
       try {
         await Pump.findByIdAndUpdate(req.params.id, {
@@ -39,10 +46,10 @@ module.exports = {
             SalesAndBilling: {
               ID: result._id,
               Date: result.Date,
-              Employee : result.Employee,
-              EmployeeId : result.EmployeeId,
+              Employee: result.Employee,
+              EmployeeId: result.EmployeeId,
               Shift: result.Shift,
-              TotalAmount:result.TotalAmount
+              TotalAmount: result.TotalAmount,
             },
           },
         });

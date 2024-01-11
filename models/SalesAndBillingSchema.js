@@ -1,6 +1,40 @@
 const mongoose = require("mongoose");
+const CardPaymentSchema = new mongoose.Schema(
+  {
+    Machine: {
+      type: String
+    },
+    Price: {
+      type: String
+    },
+
+  });
+const UpiPaymentSchema = new mongoose.Schema(
+  {
+    Upiprovider: {
+      type: String
+    },
+    Price: {
+      type: String
+    },
+   
+  });
+const OtherPaymentSchema = new mongoose.Schema(
+  {
+    Method: {
+      type: String
+    },
+    Price: {
+      type: String
+    }
+  }
+)
+
 const ProductSchema = new mongoose.Schema(
   {
+    Product: {
+      type: String
+    },
     Opening: {
       type: String
     },
@@ -62,36 +96,6 @@ const DenominationSchema = new mongoose.Schema(
     },
 
   });
-const CardPaymentSchema = new mongoose.Schema(
-  {
-    Machine: {
-      type: String
-    },
-    Price: {
-      type: String
-    },
-
-  });
-const UpiPaymentSchema = new mongoose.Schema(
-  {
-    Upiprovider: {
-      type: String
-    },
-    Price: {
-      type: String
-    },
-
-  });
-const OtherPaymentSchema = new mongoose.Schema(
-  {
-    Method: {
-      type: String
-    },
-    Price: {
-      type: String
-    }
-  }
-)
 const SalesAndBillingSchema = new mongoose.Schema(
   {
     PumpId:{
@@ -115,6 +119,12 @@ const SalesAndBillingSchema = new mongoose.Schema(
       type: String
     },
     Date: {
+      type: String
+    },
+    TotalAmountRec :{
+      type: String
+    },
+    Credit:{
       type: String
     },
     Dinomination: [DenominationSchema],
