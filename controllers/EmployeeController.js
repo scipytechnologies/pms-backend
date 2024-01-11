@@ -113,10 +113,27 @@ module.exports = {
 
     },
     deleteEmployee: async (req, res) => {
-        const id = req.params.id
+        const pumpId = req.params.pumpId
+        const employeeId = req.params.employeeId
         try {
-            await Employee.findByIdAndDelete(id)
-            res.status(200).json("success");
+            const deletedEmployee = await Employee.findByIdAndDelete(employeeId);
+
+            if (!deletedEmployee) {
+                return res.status(404).json({ error: "Employee not found" });
+            }
+            const pumpUpdate = await Pump.findByIdAndUpdate(
+                pumpId,
+                {
+                    $pull: {
+                        Employee: { EmployeeId: deletedEmployee._id }
+                    }
+                }
+            );
+    
+            if (!pumpUpdate) {
+                return res.status(500).json({ error: "Failed to update Pump collection" });
+            }
+            res.status(200).json({ deletedEmployee });
         }
         catch (err) {
             res.status(400).json({ err });
