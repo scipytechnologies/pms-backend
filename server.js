@@ -16,6 +16,8 @@ const ProductRouter=require('./routers/ProductRouter')
 const DailyRouter = require("./routers/DailyRouter")
 const MonthlyReport = require("./routers/MonthlyRouter")
 const YearlyReport = require("./routers/YearlyRouter")
+const CreditSale = require("./routers/CreditRouter")
+const Payment = require("./routers/PaymentRouter")
 
 
 app.use(cors())
@@ -32,6 +34,8 @@ app.use('/ProductRouter',ProductRouter)
 app.use('/DailyReport',DailyRouter)
 app.use('/MonthlyReport', MonthlyReport)
 app.use('/YearlyReport',YearlyReport)
+app.use('/CreditSale',CreditSale)
+app.use('/Payment',Payment)
 
 dotenv.config();
 

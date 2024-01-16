@@ -192,6 +192,22 @@ const ShiftSchema = new mongoose.Schema({
     type: String
   }
 }) 
+const CreditSalesSchema = new mongoose.Schema({
+  CreditId: {
+    type: String
+  },
+  Token: {
+    type: String
+  }
+})
+const PaymentSchema = new mongoose.Schema({
+  PaymentId: {
+    type: String
+  },
+  CustomerID: {
+    type: String
+  }
+})
 const PumpSchema = new Schema(
   {
     PumpName: {
@@ -222,7 +238,9 @@ const PumpSchema = new Schema(
     CardPayment: [CardPaymentSchema],
     UPIPayment: [UPIPaymentSchema],
     OtherPayment: [OtherPaymentSchema],
-    Shift: [ShiftSchema]
+    Shift: [ShiftSchema],
+    CreditSales: [CreditSalesSchema],
+    Payment: [PaymentSchema]
   },
   { timestamps: true }
 );
