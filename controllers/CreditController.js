@@ -1,19 +1,44 @@
 const Credit = require("../models/CreditSalesSchema")
 const Pump = require("../models/PumpSchema")
+
+async function AddCreditSale(pumpID, updateData) {
+    try {
+      const pump = await Pump.findById(pumpID);
+      if (!pump) {
+        console.log("No Pump Found");
+      } else {
+        
+        const Customer = pump.Customer.find((x) => x.CustomerId == updateData.Customer);
+        if (!Customer) {
+          console.log("Tank Not found");
+        } else {
+          const CustomerClone = Customer;
+          CustomerClone.CreditBalance =
+            parseInt(updateData.Amount) + parseInt(CustomerClone.CreditBalance);
+          Object.assign(Customer, CustomerClone);
+          await pump.save();
+          console.log("Customer Credit Balance Updated");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+}
 module.exports = {
     createCredit: async (req, res) => {
-        const { Token, VehicleNumber, Product, Quantity, Price, Amount, Status } = req.body;
+        const {VehicleNumber,Customer, Product, Quantity, Price, Amount } = req.body;
         try {
             const result = await Credit.create({
-                Token,
+                Token :'1232',
                 VehicleNumber,
+                Customer,
                 Product,
                 Quantity,
                 Price,
                 Amount,
-                Status
+                Status :'Booked'
             })
-
+            AddCreditSale(req.params.id, result)
             try {
                 await Pump.findByIdAndUpdate(req.params.id, {
                     $push: {
@@ -39,7 +64,7 @@ module.exports = {
     getCredit: async (req, res) => {
         const id = req.params.id
         try {
-            const result1 = await Credit.find()
+            const result1 = await Credit.find({Customer:id})
             res.status(200).json({ result1 });
         }
         catch (err) {

@@ -22,7 +22,10 @@ const CreditSalesSchema = new Schema(
         },
         Status: {
             type: String
-        }
+        },
+        Customer: {
+            type: String
+        },
 
     }
 )
