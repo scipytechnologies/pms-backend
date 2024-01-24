@@ -66,7 +66,7 @@ const CustomerSchema = new mongoose.Schema(
       type: String,
     },
     CreditBalance: {
-      type: String,
+      type: Number,
     },
   });
 const InventoryManagementSchema = new mongoose.Schema(
