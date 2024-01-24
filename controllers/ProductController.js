@@ -15,7 +15,8 @@ module.exports = {
                     $push: {
                         Product: [{
                             ProductId: result._id,
-                            ProductName: result.Name
+                            CategoryName: result.CategoryName,
+                            Description: result.Description
                         }]
                     }
                 });
@@ -55,26 +56,39 @@ module.exports = {
 
     },
     updateProduct: async (req, res) => {
-        const id = req.params.id
+        const categoryId = req.params.id;
         try {
-            await Product.findByIdAndUpdate(id, {
-                CategoryName: req.body.CategoryName,
-                CategoryImage: req.body.CategoryImage,
-                Description: req.body.Description,
-                product: req.body.product
-            });
-            res.status(200).json("success");
+            const newProduct = {
+                Name: req.body.Name,
+                ProductDescription: req.body.ProductDescription,
+                Category: req.body.Category,
+                Tax: req.body.Tax,
+                Brand: req.body.Brand,
+                Price: req.body.Price,
+                OnSale: req.body.OnSale,
+                Profit: req.body.Profit,
+                Margin: req.body.Margin,
+                SKU: req.body.SKU
+            };
+    
+            const updatedCategory = await Product.findByIdAndUpdate(categoryId, {
+                $push: {
+                    product: newProduct
+                }
+            }, { new: true }); 
+    
+            res.status(200).json(updatedCategory);
+        } catch (err) {
+            res.status(401).json({ err });
         }
-        catch (err) {
-            res.status(400).json({ err });
-        }
-
     },
+    
+
     deleteProduct: async (req, res) => {
         const categoryId = req.params.categoryId
         const productId = req.params.id
-        console.log("cate",categoryId)
-        console.log("prod",productId)
+        console.log("cate", categoryId)
+        console.log("prod", productId)
         try {
             const productdata = await Product.findOneAndUpdate(
                 { _id: categoryId },

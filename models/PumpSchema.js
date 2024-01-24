@@ -82,11 +82,14 @@ const InventoryManagementSchema = new mongoose.Schema(
   });
 const ProductSchema = new mongoose.Schema(
   {
-    ProductName: {
+    ProductId: {
+      type: String,
+    },
+    CategoryName: {
       type: String,
 
     },
-    ProductId: {
+    Description: {
       type: String,
 
     },
