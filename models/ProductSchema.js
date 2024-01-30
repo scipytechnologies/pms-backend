@@ -6,7 +6,7 @@ const productSchema = new mongoose.Schema({
     Name: {
         type: String
     },
-    Description: {
+    ProductDescription: {
         type: String
     },
     Category: {
