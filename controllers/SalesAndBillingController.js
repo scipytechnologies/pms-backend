@@ -135,4 +135,122 @@ module.exports = {
       res.status(400).json({ err });
     }
   },
+  getSalesReport: async (req, res) => {
+    let filter ={}
+    const date=req.query.date
+    const employ = req.query.employ
+    const  dateFilter = {"Date": { $regex: `^${date}`}}
+    const  employFilter = {"EmployeeId": employ}
+    if(date !== "all"){
+        filter ={...filter,...dateFilter}
+    }
+    if(employ !== "all") {
+      filter = {...filter,...employFilter}
+    }
+    console.log(filter);
+    try {
+      const transactions = await SalesAndBilling.find(filter);
+
+      
+      // Function to filter transactions for a specific year
+      function filterTransactionsByYear(transactions, year) {
+        return transactions.filter(transaction => new Date(transaction.Date).getFullYear() === year);
+      }
+      
+      // Function to filter transactions for a specific month and year
+      function filterTransactionsByMonth(transactions, year, month) {
+        return transactions.filter(
+          transaction =>
+            new Date(transaction.Date).getFullYear() === year &&
+            new Date(transaction.Date).getMonth() === month - 1
+        );
+      }
+      
+      // Function to filter transactions for a specific date
+      function filterTransactionsByDate(transactions, date) {
+        return transactions.filter(transaction => transaction.Date === date);
+      }
+      
+      // Function to generate Yearly Report by Product
+      function generateYearlyReportByProduct(transactions, year) {
+        const yearlyTransactions = filterTransactionsByYear(transactions, year);
+      
+        const yearlyReportByProduct = {};
+        yearlyTransactions.forEach(transaction => {
+          transaction.Product.forEach(product => {
+            const productName = product.Product;
+            if (!yearlyReportByProduct[productName]) {
+              yearlyReportByProduct[productName] = {
+                Quantity: 0,
+                Amount: 0,
+              };
+            }
+      
+            yearlyReportByProduct[productName].Quantity += parseFloat(product.Quantity);
+            yearlyReportByProduct[productName].Amount += parseFloat(product.Amount);
+          });
+        });
+      
+        // Return or log the yearly report by product
+        console.log(`Yearly Report for ${year} by Product:`, yearlyReportByProduct);
+      }
+      
+      // Function to generate Monthly Report by Product
+      function generateMonthlyReportByProduct(transactions, year, month) {
+        const monthlyTransactions = filterTransactionsByMonth(transactions, year, month);
+      
+        const monthlyReportByProduct = {};
+        monthlyTransactions.forEach(transaction => {
+          transaction.Product.forEach(product => {
+            const productName = product.Product;
+            if (!monthlyReportByProduct[productName]) {
+              monthlyReportByProduct[productName] = {
+                Quantity: 0,
+                Amount: 0,
+              };
+            }
+      
+            monthlyReportByProduct[productName].Quantity += parseFloat(product.Quantity);
+            monthlyReportByProduct[productName].Amount += parseFloat(product.Amount);
+          });
+        });
+      
+        // Return or log the monthly report by product
+        console.log(`Monthly Report for ${year}-${month} by Product:`, monthlyReportByProduct);
+      }
+      
+      // Function to generate Daily Report by Product
+      function generateDailyReportByProduct(transactions, date) {
+        const dailyTransactions = filterTransactionsByDate(transactions, date);
+      
+        const dailyReportByProduct = {};
+        dailyTransactions.forEach(transaction => {
+          transaction.Product.forEach(product => {
+            const productName = product.Product;
+            if (!dailyReportByProduct[productName]) {
+              dailyReportByProduct[productName] = {
+                Quantity: 0,
+                Amount: 0,
+              };
+            }
+      
+            dailyReportByProduct[productName].Quantity += parseFloat(product.Quantity);
+            dailyReportByProduct[productName].Amount += parseFloat(product.Amount);
+          });
+        });
+      
+        // Return or log the daily report by product
+        console.log(`Daily Report for ${date} by Product:`, dailyReportByProduct);
+      }
+      
+      // Example usage:
+      generateYearlyReportByProduct(transactions, 2024);
+      generateMonthlyReportByProduct(transactions, 2024, 1);
+      generateDailyReportByProduct(transactions, date);
+      
+      res.status(200).json({ transactions });
+    } catch (err) {
+      res.status(400).json({ err });
+    }
+  },
 };

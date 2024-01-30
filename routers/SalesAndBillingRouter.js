@@ -9,5 +9,6 @@ router.get('/getSalesAndBilling',SalesAndBillingcontroller.getSalesAndBilling)
 router.get('/getSalesAndBillingById/:id',SalesAndBillingcontroller.getSalesAndBillingById)
 router.put('/updateSalesAndBilling/:id',SalesAndBillingcontroller.updateSalesAndBilling)
 router.delete('/deleteSalesAndBilling/:id',SalesAndBillingcontroller.deleteSalesAndBilling)
+router.get('/getSalesReport',SalesAndBillingcontroller.getSalesReport)
 
 module.exports = router;                                                
