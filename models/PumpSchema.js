@@ -215,6 +215,23 @@ const PaymentSchema = new mongoose.Schema({
     type: String
   }
 })
+const EcommerceSaleSchema = new mongoose.Schema({
+  CategoryName: {
+    type: String
+  },
+  ProductName: {
+    type: String
+  },
+  Price: {
+    type: String
+  },
+  Quantity: {
+    type: String
+  },
+  TotalAmount: {
+    type: String
+  }
+})
 const PumpSchema = new Schema(
   {
     PumpName: {
@@ -247,7 +264,8 @@ const PumpSchema = new Schema(
     OtherPayment: [OtherPaymentSchema],
     Shift: [ShiftSchema],
     CreditSales: [CreditSalesSchema],
-    Payment: [PaymentSchema]
+    Payment: [PaymentSchema],
+    Ecommerce: [EcommerceSaleSchema]
   },
   { timestamps: true }
 );

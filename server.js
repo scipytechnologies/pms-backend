@@ -18,6 +18,7 @@ const MonthlyReport = require("./routers/MonthlyRouter")
 const YearlyReport = require("./routers/YearlyRouter")
 const CreditSale = require("./routers/CreditRouter")
 const Payment = require("./routers/PaymentRouter")
+const Ecommerce = require("./routers/EcommerceRouter")
 
 
 app.use(cors())
@@ -36,6 +37,7 @@ app.use('/MonthlyReport', MonthlyReport)
 app.use('/YearlyReport',YearlyReport)
 app.use('/CreditSale',CreditSale)
 app.use('/Payment',Payment)
+app.use('/Ecommerce',Ecommerce)
 
 dotenv.config();
 

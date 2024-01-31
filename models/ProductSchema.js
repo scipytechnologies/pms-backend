@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
     Category: {
         type: String
     },
-    Tax: {
+    GST: {
         type: Number
     },
     Brand: {
