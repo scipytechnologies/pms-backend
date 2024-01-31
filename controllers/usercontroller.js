@@ -5,8 +5,8 @@ const jwt = require("jsonwebtoken");
 // Load User model
 const User = require("../models/userschema")
 // Load input validation
-const SignupValidation = require("../validator/SignupValidation");
-const SigninValidation = require("../validator/SigninValidation");
+const SignupValidation = require("../Validator/SignupValidation");
+const SigninValidation = require("../Validator/SigninValidation");
 module.exports = {
   //  ---------------------------------------- //signup method to add a new user//--------------------------- //
 
