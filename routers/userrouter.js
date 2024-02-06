@@ -10,4 +10,6 @@ router.post("/signup", UserController.signup);
 router.post("/signin", UserController.signin);
 router.post("/auth", UserController.verifyToken)
 router.get("/getuser/:id",UserController.getUser)
+router.get("/getColab/:id",UserController.getColab)
+router.delete("/deleteColab/:id",UserController.deleteColab)
 module.exports = router;

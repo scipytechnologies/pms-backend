@@ -10,5 +10,5 @@ router.get('/getSalesAndBillingById/:id',SalesAndBillingcontroller.getSalesAndBi
 router.put('/updateSalesAndBilling/:id',SalesAndBillingcontroller.updateSalesAndBilling)
 router.delete('/deleteSalesAndBilling/:id',SalesAndBillingcontroller.deleteSalesAndBilling)
 router.get('/getSalesReport',SalesAndBillingcontroller.getSalesReport)
-
+router.get('/getchart/:id',SalesAndBillingcontroller.SalesChart)
 module.exports = router;                                                
