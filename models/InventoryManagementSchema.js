@@ -2,14 +2,17 @@ const mongoose = require('mongoose')
 const inventorymanagementDetailsSchema = new mongoose.Schema({
 
     // ⁡⁣⁣⁢ Basic Details⁡
-
+    PumpId: {
+        type: String,
+        required: true
+    },
+    CategoryName: {
+        type: String
+    },
     SKUNo: {
         type: Number
     },
     ItemName: {
-        type: String
-    },
-    ItemCategory: {
         type: String
     },
     CurrentStock: {
@@ -26,17 +29,8 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
     },
     Description: {
         type: String
-    },
-    // Tax: {
-    //     type: Number
-    // },
-    // HSNCode: {
-    //     type: String
-    // },
-    // BuyOrSell: {
-    //     type: String
-    // },
+    }
 },
-{ timestamps: true });
+    { timestamps: true });
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementDetailsSchema);
 module.exports = Inventorymanagement;

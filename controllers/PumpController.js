@@ -19,8 +19,9 @@ module.exports = {
                 Nozzle: [],
                 CardPayment: [],
                 UPIPayment: [],
-                OtherPayment: []
-            });
+                OtherPayment: [],
+                Ecommerce: []
+            });  
             res.status(200).json({ result });
         }
         catch (err) {
@@ -388,8 +389,9 @@ module.exports = {
                 DipStock: req.body.DipStock,
                 Nozzle: req.body.Nozzle,
                 CardPayment: req.body.CardPayment,
-                UPIPayment: req.body.UPIPayment,
-                OtherPayment: req.body.OtherPayment
+                UPIPayment: req.body.UPIPayment, 
+                OtherPayment: req.body.OtherPayment,
+                Ecommerce: req.body.Ecommerce
             });
             res.status(200).json("success");
         }

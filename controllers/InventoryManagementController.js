@@ -2,12 +2,13 @@ const InventoryManagement = require("../models/InventoryManagementSchema")
 const Pump = require("../models/PumpSchema")
 module.exports = {
     createInventoryManagement: async (req, res) => {
-        const { SKUNo, ItemName, ItemCategory, CurrentStock, Price, Brand, ExpiryDate, Description } = req.body;
+        const { PumpId, SKUNo, ItemName, CategoryName, CurrentStock, Price, Brand, ExpiryDate, Description } = req.body;
         try {
             const result = await InventoryManagement.create({
+                PumpId,
+                CategoryName,
                 SKUNo,
                 ItemName,
-                ItemCategory,
                 CurrentStock,
                 Price,
                 Brand,
@@ -19,11 +20,12 @@ module.exports = {
                     $push: {
                         InventoryManagement: [{
                             InventoryManagementId: result._id,
-                            InventoryManagementName: result.ItemName
+                            CategoryName: result.CategoryName,
+                            ItemName: result.ItemName,  
                         }]
                     }
                 });
-                res.status(200).json("success");
+                res.status(200).json({ result });
             }
             catch (err) {
                 res.status(401).json({ err });
@@ -64,7 +66,7 @@ module.exports = {
             await InventoryManagement.findByIdAndUpdate(id, {
                 SKUNo: req.body.SKUNo,
                 ItemName: req.body.ItemName,
-                ItemCategory: req.body.ItemCategory,
+                CategoryName: req.body.CategoryName,
                 CurrentStock: req.body.CurrentStock,
                 Price: req.body.Price,
                 Brand: req.body.Brand,
@@ -82,6 +84,11 @@ module.exports = {
         const PumpId = req.params.pumpId
         const InventoryId = req.params.inventoryId
         try {
+            const deletedEmployee = await InventoryManagement.findByIdAndDelete(InventoryId);
+            if (!deletedEmployee) {
+                return res.status(404).json({ error: "Employee not found" });
+            }
+            
             const inventorydata = await Pump.findOneAndUpdate(
                 { _id: PumpId },
                 {
