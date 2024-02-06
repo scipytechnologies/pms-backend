@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema
-const EcommerceSchema = new Schema ({
+const EcommerceSchema = new Schema({
     CategoryName: {
         type: String
     },
@@ -20,7 +20,7 @@ const EcommerceSchema = new Schema ({
         type: String
     },
     ProductId: {
-        type : String
+        type: String
     },
     CategoryId: {
         type: String
@@ -34,11 +34,13 @@ const EcommerceSaleSchema = new mongoose.Schema({
         type: String
     },
     GST: {
-        type: String    
+        type: String
     },
     TotalSaleAmount: {
         type: String
     },
-    EcommerceSale: [EcommerceSchema]
-})
-module.exports = mongoose.model("Ecommerce",EcommerceSaleSchema)
+    EcommerceSale: [EcommerceSchema],
+
+}, { timestamps: true });
+
+module.exports = mongoose.model("Ecommerce", EcommerceSaleSchema)

@@ -71,13 +71,16 @@ const CustomerSchema = new mongoose.Schema(
   });
 const InventoryManagementSchema = new mongoose.Schema(
   {
-    InventoryManagementName: {
-      type: String,
-
-    },
     InventoryManagementId: {
       type: String,
 
+    },
+    CategoryName: {
+      type: String,
+
+    },
+    ItemName: {
+      type: String,
     },
   });
 const ProductSchema = new mongoose.Schema(
@@ -92,7 +95,7 @@ const ProductSchema = new mongoose.Schema(
     Description: {
       type: String,
 
-    },
+    }
   });
 const SalesAndBillingSchema = new mongoose.Schema(
   {
@@ -198,7 +201,7 @@ const ShiftSchema = new mongoose.Schema({
   To: {
     type: String
   }
-}) 
+})
 const CreditSalesSchema = new mongoose.Schema({
   CreditId: {
     type: String
@@ -216,19 +219,17 @@ const PaymentSchema = new mongoose.Schema({
   }
 })
 const EcommerceSaleSchema = new mongoose.Schema({
-  CategoryName: {
+  ID: {
+    type: String,
+  },
+  SalesId: {
     type: String
   },
-  ProductName: {
-    type: String
+  Date: {
+    type: Date,
+    default: Date.now
   },
-  Price: {
-    type: String
-  },
-  Quantity: {
-    type: String
-  },
-  TotalAmount: {
+  TotalSaleAmount: {
     type: String
   }
 })

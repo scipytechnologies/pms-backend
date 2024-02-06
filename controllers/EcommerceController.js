@@ -17,12 +17,17 @@ module.exports = {
                 Quantity: item.Quantity,
                 TotalAmount: item.TotalAmount
             }));
-    
+
             try {
                 await Pump.findByIdAndUpdate(req.params.id, {
                     $push: {
-                        Ecommerce: extractedData
-                    }
+                        Ecommerce: {
+                            ID: result._id,
+                            Date: result.Date,
+                            SalesId: result.SalesId,
+                            TotalSaleAmount: result.TotalSaleAmount,
+                        },
+                    },
                 });
                 res.status(200).json("success")
             }
@@ -43,13 +48,13 @@ module.exports = {
             res.status(400).json({ err })
         }
     },
-    getByIdEcommerce: async (req,res) => {
+    getByIdEcommerce: async (req, res) => {
         try {
             const id = req.params.id
             const result2 = await Ecommerce.findById(id)
             res.status(200).json({ result2 })
         }
-        catch(err) {
+        catch (err) {
             res.status(400).json({ err })
         }
     }
