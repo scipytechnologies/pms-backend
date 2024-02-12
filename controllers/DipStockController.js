@@ -71,10 +71,14 @@ module.exports = {
       try {
         await PumpSchema.findByIdAndUpdate(req.params.id, {
           $push: {
-            DipStock: [{
+            DipStock: {
               DipStockId: result._id,
-              DipstockName: result.InvoiceNumber
-            }]
+              Date: result.Date,
+              InvoiceNumber: result.InvoiceNumber,
+              Product: result.Product,
+              Quantity: result.Quantity,
+              Price: result.Price,
+            }
           }
         });
         res.status(200).json("success");
@@ -107,6 +111,7 @@ module.exports = {
   },
   updateDipStock: async (req, res) => {
     const id = req.params.id;
+    const pumpid = req.params.pumpid
     try {
       await DipStock.findByIdAndUpdate(id, {
         Date: req.body.Date,
@@ -119,25 +124,67 @@ module.exports = {
         Note: req.body.Note,
         TotalQuantityFilled: req.body.TotalQuantityFilled,
         RemainingQuantity: req.body.RemainingQuantity,
-        PhoneNumber: req.body.PhoneNumber,
-        LFRAmount: req.body.LFRAmount,
-        Rate: req.body.Rate,
-        VAT: req.body.VAT,
-        Cess: req.body.Cess,
         TankDistribution: req.body.TankDistribution,
-        PumpId: req.body.PumpId,
+
       });
-      res.status(200).json("success");
+      try {
+        const object = await PumpSchema.findById(pumpid);
+        if (!object) {
+          return res.status(404).send("Object not found");
+        } else {
+          const nestedDipStock = object.DipStock.find(
+            (nestedObj) => nestedObj.DipStockId === id
+          );
+
+          if (!nestedDipStock) {
+            return res.status(404).send("Nested object not found");
+          }
+
+          const updatedDipStockData = {
+            Date: req.body.Date,
+            InvoiceNumber: req.body.InvoiceNumber,
+            Product: req.body.Product,
+            Quantity: req.body.Quantity,
+            Price: req.body.Price,
+          };
+  
+          Object.assign(nestedDipStock, updatedDipStockData);
+
+          await object.save();
+
+          res.send("Object updated successfully");
+        }
+      } catch (err) {
+        res.status(400).json({ err });
+      }
     } catch (err) {
       res.status(400).json({ err });
     }
   },
   deleteDipStock: async (req, res) => {
-    const id = req.params.id;
+    const pumpId = req.params.pumpId
+    const DipStockid = req.params.id;
     try {
-      await DipStock.findByIdAndDelete(id);
-      res.status(200).json("success");
-    } catch (err) {
+      const deletedDipStock = await DipStock.findByIdAndDelete(DipStockid);
+
+      if (!deletedDipStock) {
+        return res.status(404).json({ error: "Employee not found" });
+      }
+      const pumpUpdate = await PumpSchema.findByIdAndUpdate(
+        pumpId,
+        {
+          $pull: {
+            DipStock: { DipStockId: deletedDipStock._id }
+          }
+        }
+      );
+
+      if (!pumpUpdate) {
+        return res.status(500).json({ error: "Failed to update Pump collection" });
+      }
+      res.status(200).json({ deletedEmployee });
+    }
+    catch (err) {
       res.status(400).json({ err });
     }
   },
