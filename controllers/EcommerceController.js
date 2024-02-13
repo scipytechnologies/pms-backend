@@ -2,22 +2,15 @@ const Ecommerce = require("../models/EcommerceSchema")
 const Pump = require("../models/PumpSchema")
 module.exports = {
     createEcommerce: async (req, res) => {
-        const { SalesId, GST, TotalSaleAmount, EcommerceSale } = req.body
+        const { SalesId, GST,PumpId,TotalSaleAmount, EcommerceSale } = req.body
         try {
             const result = await Ecommerce.create({
                 SalesId,
                 GST,
+                PumpId,
                 TotalSaleAmount,
                 EcommerceSale
             })
-            const extractedData = EcommerceSale.map(item => ({
-                CategoryName: item.CategoryName,
-                ProductName: item.ProductName,
-                Price: item.Price,
-                Quantity: item.Quantity,
-                TotalAmount: item.TotalAmount
-            }));
-
             try {
                 await Pump.findByIdAndUpdate(req.params.id, {
                     $push: {

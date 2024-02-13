@@ -4,7 +4,7 @@ const EcommerceSchema = new Schema({
     CategoryName: {
         type: String
     },
-    ProductName: {
+    Name: {
         type: String
     },
     Price: {
@@ -13,24 +13,18 @@ const EcommerceSchema = new Schema({
     Quantity: {
         type: String
     },
-    TotalAmount: {
-        type: String
-    },
-    PumpId: {
+    Total: {
         type: String
     },
     ProductId: {
         type: String
     },
-    CategoryId: {
-        type: String
-    },
-    GST: {
-        type: String
-    }
 })
 const EcommerceSaleSchema = new mongoose.Schema({
     SalesId: {
+        type: String
+    },
+    PumpId: {
         type: String
     },
     GST: {
