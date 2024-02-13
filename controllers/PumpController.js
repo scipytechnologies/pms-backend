@@ -20,7 +20,10 @@ module.exports = {
                 CardPayment: [],
                 UPIPayment: [],
                 OtherPayment: [],
-                Ecommerce: []
+                Ecommerce: [],
+                FuelTesting: [],
+                Evaporation: [],
+
             });  
             res.status(200).json({ result });
         }
@@ -391,7 +394,10 @@ module.exports = {
                 CardPayment: req.body.CardPayment,
                 UPIPayment: req.body.UPIPayment, 
                 OtherPayment: req.body.OtherPayment,
-                Ecommerce: req.body.Ecommerce
+                Ecommerce: req.body.Ecommerce,
+                FuelTesting: req.body.FuelTesting,
+                Evaporation: req.body.Evaporation,
+
             });
             res.status(200).json("success");
         }

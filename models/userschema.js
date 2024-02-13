@@ -26,7 +26,6 @@ const UserSchema = new Schema(
     },
     PumpId: {
       type: String,
-      required: true,
     },
 },
 { timestamps: true }

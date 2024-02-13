@@ -21,7 +21,6 @@ const TankSchema = new mongoose.Schema(
     },
     Quantity: {
       type: String,
-      required: true,
     },
     note: {
       type: String,
@@ -126,13 +125,23 @@ const SalesAndBillingSchema = new mongoose.Schema(
   });
 const DipstockSchema = new mongoose.Schema(
   {
-    DipstockName: {
+    DipStockId: {
       type: String,
-
     },
-    DipstockId: {
+    Date: {
+      type: String
+    },
+    InvoiceNumber: {
       type: String,
-
+    },
+    Product: {
+      type: String
+    },
+    Quantity: {
+      type: String
+    },
+    Price: {
+      type: String
     },
   });
 const FuelSchema = new mongoose.Schema(
@@ -233,6 +242,40 @@ const EcommerceSaleSchema = new mongoose.Schema({
     type: String
   }
 })
+const FuelTestSchema = new Schema({
+  FuelTestId: {
+    type: String
+  },
+  EmployeeName: {
+    type: String
+  },
+  EmployeeId: {
+    type: String
+  },
+  NozzleId: {
+    type: String
+  },
+  Product: {
+    type: String
+  }
+})
+const EvaporationRateSchema = new Schema({
+  EvaporationId: {
+    type: String
+  },
+  Tank: {
+    type: String
+  },
+  Tankid: {
+    type: String
+  },
+  InitialQuantity: {
+    type: String
+  },
+  ActualQuantity: {
+    type: String
+  }
+})
 const PumpSchema = new Schema(
   {
     PumpName: {
@@ -266,7 +309,9 @@ const PumpSchema = new Schema(
     Shift: [ShiftSchema],
     CreditSales: [CreditSalesSchema],
     Payment: [PaymentSchema],
-    Ecommerce: [EcommerceSaleSchema]
+    Ecommerce: [EcommerceSaleSchema],
+    FuelTesting: [FuelTestSchema],
+    Evaporation: [EvaporationRateSchema],
   },
   { timestamps: true }
 );
