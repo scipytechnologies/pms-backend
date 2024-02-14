@@ -107,5 +107,41 @@ module.exports = {
             res.status(400).json({ err });
         }
 
-    }
+    },
+    onSales: async (req, res) => {
+        const cat = req.params.cat;
+        const id = req.params.id;
+        const pumpid = req.params.pumpid;
+        console.log(id);
+          try {
+            const object = await Product.findById(cat);
+            if (!object) {
+              return res.status(404).send("Object not found");
+            } else {
+
+              
+              const nestedproduct = object.product.find(
+                (nestedObj) => nestedObj._id == id
+              ); 
+               
+              if (!nestedproduct) {
+                return res.status(404).send("Nested object not found");
+              }
+            //   // Update the customer's data with the provided updatedCustomerData
+              const updatedProductData = nestedproduct
+              if(updatedProductData.OnSale && updatedProductData.OnSale ==true){
+                updatedProductData.OnSale = false
+              }else{
+                updatedProductData.OnSale = true
+              }
+              Object.assign(nestedproduct, updatedProductData);
+    
+              await object.save();
+    
+              res.send("Object updated successfully");
+            }
+          } catch (err) {
+            res.status(400).json({ err });
+          }
+      },
 }
