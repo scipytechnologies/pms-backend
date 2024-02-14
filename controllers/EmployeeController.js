@@ -37,8 +37,8 @@ module.exports = {
                         Employee: [{
                             EmployeeId: result._id,
                             Designation: result.Designation,
-                            DOB:result.DOB,
-                            PhoneNumber:result.PhoneNumber,
+                            DOB: result.DOB,
+                            PhoneNumber: result.PhoneNumber,
                             EmployeeName: result.FirstName + " " + result.LastName
                         }]
                     }
@@ -46,7 +46,7 @@ module.exports = {
                 res.status(200).json("success");
             }
             catch (err) {
-                res.status(401).json({err});
+                res.status(401).json({ err });
             }
 
         }
@@ -80,6 +80,7 @@ module.exports = {
 
     updateEmployee: async (req, res) => {
         const id = req.params.id
+        const pumpid = req.params.pumpid
         const { FirstName, LastName, DOB, PhoneNumber, Email, TemporaryAddress,
             PermanentAddress, AadhaarId, VoterId,
             PANCardNumber, PFNumber, ESINumber, UAN,
@@ -108,7 +109,31 @@ module.exports = {
                 IFSCCode,
                 Branch
             });
-            res.status(200).json("success");
+            // res.status(200).json("success");
+            try {
+                const object = await Pump.findById(pumpid)
+                if (!object) {
+                    return res.status(404).send("Object not found")
+                } else {
+                    const nestedEmployee = object.Employee.find(
+                        (nestedObj) => nestedObj.EmployeeId === id
+                    );
+                    if (!nestedEmployee) {
+                        return res.status(404).send("Nested object not found")
+                    }
+                    const updatedEmployeeData = {
+                        Designation: req.body.Designation,
+                        DOB: req.body.DOB,
+                        PhoneNumber: req.body.PhoneNumber,
+                        EmployeeName: req.body.FirstName + " " + req.body.LastName,
+                    }
+                    Object.assign(nestedEmployee, updatedEmployeeData)
+                    await object.save();
+                    res.send("Object updated successfully");
+                }
+            }catch (err) {
+                res.status(400).json({ err })
+            }
         }
         catch (err) {
             res.status(400).json({ err });
@@ -132,7 +157,7 @@ module.exports = {
                     }
                 }
             );
-    
+
             if (!pumpUpdate) {
                 return res.status(500).json({ error: "Failed to update Pump collection" });
             }
