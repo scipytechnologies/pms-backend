@@ -104,5 +104,25 @@ module.exports = {
             res.status(400).json({ err });
         }
 
+    },
+    updatehistory: async (req,res) => {
+        const id = req.params.id
+        try {
+            const historyupdate = await InventoryManagement.findByIdAndUpdate(id, {
+                SKUNo: req.body.SKUNo,
+                ItemName: req.body.ItemName,
+                CategoryName: req.body.CategoryName,
+                CurrentStock: req.body.CurrentStock,
+                Price: req.body.Price,
+                Brand: req.body.Brand,
+                ExpiryDate: req.body.ExpiryDate,
+                Description: req.body.Description,
+                InventoryHistory: req.body.InventoryHistory
+            });
+            res.status(200).json(historyupdate);
+        }
+        catch(err) {
+            res.status(400).json({ err })
+        }
     }
 }

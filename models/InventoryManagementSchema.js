@@ -1,4 +1,19 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const historySchema = new Schema({
+    Date: {
+        type: String
+    },
+    Stock: {
+        type: Number
+    },
+    Mode: {
+        type: String
+    },
+    CurrentStock: {
+        type: String
+    }
+})
 const inventorymanagementDetailsSchema = new mongoose.Schema({
 
     // ⁡⁣⁣⁢ Basic Details⁡
@@ -29,7 +44,8 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
     },
     Description: {
         type: String
-    }
+    },
+    InventoryHistory: [historySchema]
 },
     { timestamps: true });
 const Inventorymanagement = mongoose.model("inventorymanagement", inventorymanagementDetailsSchema);
