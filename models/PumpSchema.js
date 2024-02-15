@@ -249,13 +249,13 @@ const FuelTestSchema = new Schema({
   EmployeeName: {
     type: String
   },
-  EmployeeId: {
+  Date: {
     type: String
   },
-  NozzleId: {
+  Quantity: {
     type: String
   },
-  Product: {
+  TestResult: {
     type: String
   }
 })
