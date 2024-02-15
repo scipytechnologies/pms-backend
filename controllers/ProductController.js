@@ -140,7 +140,7 @@ module.exports = {
     
               res.send("Object updated successfully");
             }
-          } catch (err) {
+          } catch (err) {    
             res.status(400).json({ err });
           }
       },

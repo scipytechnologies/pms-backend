@@ -22,6 +22,7 @@ module.exports = {
                             InventoryManagementId: result._id,
                             CategoryName: result.CategoryName,
                             ItemName: result.ItemName,  
+                            CurrentStock : result.CurrentStock
                         }]
                     }
                 });
