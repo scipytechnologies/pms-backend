@@ -81,6 +81,9 @@ const InventoryManagementSchema = new mongoose.Schema(
     ItemName: {
       type: String,
     },
+    CurrentStock: {
+      type: String,
+    },
   });
 const ProductSchema = new mongoose.Schema(
   {
