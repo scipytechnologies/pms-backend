@@ -94,7 +94,7 @@ module.exports = {
                 { _id: categoryId },
                 {
                     $pull: {
-                        product: { ProductId: productId }
+                        product: { _id: productId }
                     },
                 },
             )
