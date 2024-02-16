@@ -14,9 +14,11 @@ module.exports = {
                         Evaporation: [{
                             EvaporationId: result._id,
                             Tank: result.Tank,
-                            Tankid: result.Tankid,
+                            Date: result.Date,
                             InitialQuantity: result.InitialQuantity,
                             ActualQuantity: result.ActualQuantity,
+                            TestedBy: result.TestedBy,
+                            Missing: result.Missing
                         }]
                     }
                 })
