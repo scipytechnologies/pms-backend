@@ -12,6 +12,9 @@ const historySchema = new Schema({
     },
     CurrentStock: {
         type: String
+    },
+    Note: {
+        type: String
     }
 })
 const inventorymanagementDetailsSchema = new mongoose.Schema({

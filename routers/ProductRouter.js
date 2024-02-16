@@ -9,6 +9,7 @@ router.get('/getProduct',ProductController.getProduct)
 router.get('/getProductById/:id',ProductController.getProductById)
 router.put('/updateProduct/:id',ProductController.updateProduct)
 router.delete('/deleteProduct/:categoryId/:id',ProductController.deleteProduct)
+router.delete('/deleteCategory/:pumpid/:id',ProductController.deleteCategory)
 
 router.put('/onsale/:cat/:id',ProductController.onSales)
 module.exports = router;                                                
