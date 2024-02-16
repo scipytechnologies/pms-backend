@@ -119,15 +119,15 @@ module.exports = {
     const id = req.params.id;
     try {
       const historyupdate = await InventoryManagement.findByIdAndUpdate(id, {
-        SKUNo: req.body.SKUNo,
-        ItemName: req.body.ItemName,
-        CategoryName: req.body.CategoryName,
-        CurrentStock: req.body.CurrentStock,
-        Price: req.body.Price,
-        Brand: req.body.Brand,
-        ExpiryDate: req.body.ExpiryDate,
-        Description: req.body.Description,
-        InventoryHistory: req.body.InventoryHistory,
+        $push: {
+          InventoryHistory: [{
+            Date: req.body.Date,
+            Stock: req.body.Stock,
+            Mode: req.body.Mode,
+            CurrentStock: req.body.CurrentStock,
+            Note: req.body.Note
+          }]
+        }
       });
       res.status(200).json(historyupdate);
     } catch (err) {

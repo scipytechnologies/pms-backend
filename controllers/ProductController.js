@@ -70,19 +70,19 @@ module.exports = {
                 Margin: req.body.Margin,
                 SKU: req.body.SKU
             };
-    
+
             const updatedCategory = await Product.findByIdAndUpdate(categoryId, {
                 $push: {
                     product: newProduct
                 }
-            }, { new: true }); 
-    
+            }, { new: true });
+
             res.status(200).json(updatedCategory);
         } catch (err) {
             res.status(401).json({ err });
         }
     },
-    
+
 
     deleteProduct: async (req, res) => {
         const categoryId = req.params.categoryId
@@ -113,35 +113,61 @@ module.exports = {
         const id = req.params.id;
         const pumpid = req.params.pumpid;
         console.log(id);
-          try {
+        try {
             const object = await Product.findById(cat);
             if (!object) {
-              return res.status(404).send("Object not found");
+                return res.status(404).send("Object not found");
             } else {
 
-              
-              const nestedproduct = object.product.find(
-                (nestedObj) => nestedObj._id == id
-              ); 
-               
-              if (!nestedproduct) {
-                return res.status(404).send("Nested object not found");
-              }
-            //   // Update the customer's data with the provided updatedCustomerData
-              const updatedProductData = nestedproduct
-              if(updatedProductData.OnSale && updatedProductData.OnSale ==true){
-                updatedProductData.OnSale = false
-              }else{
-                updatedProductData.OnSale = true
-              }
-              Object.assign(nestedproduct, updatedProductData);
-    
-              await object.save();
-    
-              res.send("Object updated successfully");
+
+                const nestedproduct = object.product.find(
+                    (nestedObj) => nestedObj._id == id
+                );
+
+                if (!nestedproduct) {
+                    return res.status(404).send("Nested object not found");
+                }
+                //   // Update the customer's data with the provided updatedCustomerData
+                const updatedProductData = nestedproduct
+                if (updatedProductData.OnSale && updatedProductData.OnSale == true) {
+                    updatedProductData.OnSale = false
+                } else {
+                    updatedProductData.OnSale = true
+                }
+                Object.assign(nestedproduct, updatedProductData);
+
+                await object.save();
+
+                res.send("Object updated successfully");
             }
-          } catch (err) {    
+        } catch (err) {
             res.status(400).json({ err });
-          }
-      },
+        }
+    },
+    deleteCategory: async (req,res) => {
+        const pumpid = req.params.pumpid
+        const id = req.params.id
+        try {
+            const deletecategory = await Product.findByIdAndDelete(id)
+            if(!deletecategory) {
+                res.status(404).json("Category Not Found")
+            }
+            const pumpUpdate = await Pump.findByIdAndUpdate(
+                pumpid,
+                {
+                    $pull : {
+                        Product: { ProductId: deletecategory._id }
+                    }
+                }
+            )
+            if (!pumpUpdate) {
+                return res.status(500).json({ error: "Failed to update Pump collection" });
+            }
+            res.status(200).json({ deletecategory })
+            
+        }
+        catch(err) {
+            res.status(400).json({ err })
+        }
+    }
 }
