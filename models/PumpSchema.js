@@ -205,13 +205,22 @@ const EcommerceSaleSchema = new mongoose.Schema({
   },
 });
 const FuelTestSchema = new Schema({
-  FuelTestId: {
+  Nozzle: {
     type: String,
   },
   EmployeeName: {
     type: String,
   },
   Date: {
+    type: String,
+  },
+  Opening: {
+    type: String,
+  },
+  Closing: {
+    type: String,
+  },
+  Product: {
     type: String,
   },
   Quantity: {
