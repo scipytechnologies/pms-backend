@@ -60,7 +60,7 @@ module.exports = {
             );
             const TankClone = Tank;
             TankClone.Quantity =
-              parseInt(TankClone.Quantity) - parseInt(item.Quantity);
+              parseInt(TankClone.Quantity) - parseInt(Quantity);
             Object.assign(Tank, TankClone);
             await pump.save();
             res.status(200).json(update);
