@@ -13,6 +13,7 @@ module.exports = {
       Quantity,
       TestResult,
       Date,
+      Nozzle
     } = req.body;
     try {
       const result = await FuelTesting.create({
@@ -24,6 +25,7 @@ module.exports = {
         Closing,
         Quantity,
         TestResult,
+        Nozzle,
         Date,
       });
       try {
@@ -31,16 +33,42 @@ module.exports = {
           $push: {
             FuelTesting: [
               {
-                FuelTestId: result._id,
                 Date: result.Date,
+                Nozzle: result.Nozzle,
                 EmployeeName: result.EmployeeName,
                 Quantity: result.Quantity,
                 TestResult: result.TestResult,
+                Opening: result.Opening,
+                Closing: result.Closing,
               },
             ],
           },
         });
-        res.status(200).json(update)
+        try {
+          const pump = await Pump.findById(req.params.id);
+          if (!pump) {
+            console.log("No Pump Found");
+          } else {
+            const Nozzles = pump.Nozzle;
+            const index = Nozzles.findIndex(
+              (obj) => obj._id.toString() === NozzleId
+            );
+            Nozzles[index].Reading = Closing;
+
+            const Tank = pump.Tank.find(
+              (tank) => tank._id == Nozzles[index].FuelId
+            );
+            const TankClone = Tank;
+            TankClone.Quantity =
+              parseInt(TankClone.Quantity) - parseInt(Quantity);
+            Object.assign(Tank, TankClone);
+            await pump.save();
+            res.status(200).json(update);
+            console.log("Nozzle Updated");
+          }
+        } catch (err) {
+          console.log(err);
+        }
       } catch (err) {
         res.status(404).json({ err });
       }
@@ -120,4 +148,3 @@ module.exports = {
     }
   },
 };
-

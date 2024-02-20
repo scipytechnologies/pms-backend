@@ -1,297 +1,268 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const TankSchema = new mongoose.Schema(
-  {
-    TankNumber: {
-      type: String,
+const TankSchema = new mongoose.Schema({
+  TankNumber: {
+    type: String,
+  },
+  Volume: {
+    type: String,
+  },
+  Product: {
+    type: String,
+  },
+  ProductCode: {
+    type: String,
+  },
+  Quantity: {
+    type: String,
+  },
+  note: {
+    type: String,
+  },
+  Active: {
+    type: Boolean,
+  },
+});
+const EmployeeSchema = new mongoose.Schema({
+  EmployeeName: {
+    type: String,
+  },
+  EmployeeId: {
+    type: String,
+  },
+  Designation: {
+    type: String,
+  },
+  DOB: {
+    type: String,
+  },
+  PhoneNumber: {
+    type: String,
+  },
+});
+const CustomerSchema = new mongoose.Schema({
+  CustomerName: {
+    type: String,
+  },
+  CustomerId: {
+    type: String,
+  },
+  MobileNo: {
+    type: String,
+  },
+  CreditBalance: {
+    type: Number,
+  },
+});
+const InventoryManagementSchema = new mongoose.Schema({
+  InventoryManagementId: {
+    type: String,
+  },
+  CategoryName: {
+    type: String,
+  },
+  ItemName: {
+    type: String,
+  },
+  CurrentStock: {
+    type: String,
+  },
+});
+const ProductSchema = new mongoose.Schema({
+  ProductId: {
+    type: String,
+  },
+  CategoryName: {
+    type: String,
+  },
+  Description: {
+    type: String,
+  },
+});
+const SalesAndBillingSchema = new mongoose.Schema({
+  ID: {
+    type: String,
+  },
+  Date: {
+    type: String,
+  },
+  Employee: {
+    type: String,
+  },
+  EmployeeId: {
+    type: String,
+  },
+  Shift: {
+    type: String,
+  },
+  TotalAmount: {
+    type: String,
+  },
+});
+const DipstockSchema = new mongoose.Schema({
+  DipStockId: {
+    type: String,
+  },
+  Date: {
+    type: String,
+  },
+  InvoiceNumber: {
+    type: String,
+  },
+  Product: {
+    type: String,
+  },
+  Quantity: {
+    type: String,
+  },
+  Price: {
+    type: String,
+  },
+});
+const FuelSchema = new mongoose.Schema({
+  FuelName: {
+    type: String,
+  },
+  FuelPricePerLitre: {
+    type: String,
+  },
+});
+const CardPaymentSchema = new mongoose.Schema({
+  Name: {
+    type: String,
+  },
+});
+const UPIPaymentSchema = new mongoose.Schema({
+  Name: {
+    type: String,
+  },
+});
+const OtherPaymentSchema = new mongoose.Schema({
+  Name: {
+    type: String,
+  },
+});
+const NozzleSchema = new mongoose.Schema({
+  NozzleName: {
+    type: String,
+  },
+  Reading: {
+    type: String,
+  },
+  // Opening: {
+  //   type: String,
 
-    },
-    Volume: {
-      type: String,
+  // },
+  // Closing: {
+  //   type: String,
 
-    },
-    Product: {
-      type: String,
-
-    },
-    ProductCode: {
-      type: String,
-
-    },
-    Quantity: {
-      type: String,
-    },
-    note: {
-      type: String,
-    },
-    Active: {
-      type: Boolean,
-    },
-
-  });
-const EmployeeSchema = new mongoose.Schema(
-  {
-    EmployeeName: {
-      type: String,
-
-    },
-    EmployeeId: {
-      type: String,
-
-    },
-    Designation: {
-      type: String,
-
-    },
-    DOB: {
-      type: String,
-
-    },
-    PhoneNumber: {
-      type: String,
-
-    },
-  });
-const CustomerSchema = new mongoose.Schema(
-  {
-    CustomerName: {
-      type: String,
-    },
-    CustomerId: {
-      type: String,
-    },
-    MobileNo: {
-      type: String,
-    },
-    CreditBalance: {
-      type: Number,
-    },
-  });
-const InventoryManagementSchema = new mongoose.Schema(
-  {
-    InventoryManagementId: {
-      type: String,
-
-    },
-    CategoryName: {
-      type: String,
-
-    },
-    ItemName: {
-      type: String,
-    },
-    CurrentStock: {
-      type: String,
-    },
-  });
-const ProductSchema = new mongoose.Schema(
-  {
-    ProductId: {
-      type: String,
-    },
-    CategoryName: {
-      type: String,
-
-    },
-    Description: {
-      type: String,
-
-    }
-  });
-const SalesAndBillingSchema = new mongoose.Schema(
-  {
-    ID: {
-      type: String,
-
-    },
-    Date: {
-      type: String,
-
-    },
-    Employee: {
-      type: String,
-
-    },
-    EmployeeId: {
-      type: String,
-
-    },
-    Shift: {
-      type: String,
-
-    },
-    TotalAmount: {
-      type: String,
-
-    },
-  });
-const DipstockSchema = new mongoose.Schema(
-  {
-    DipStockId: {
-      type: String,
-    },
-    Date: {
-      type: String
-    },
-    InvoiceNumber: {
-      type: String,
-    },
-    Product: {
-      type: String
-    },
-    Quantity: {
-      type: String
-    },
-    Price: {
-      type: String
-    },
-  });
-const FuelSchema = new mongoose.Schema(
-  {
-    FuelName: {
-      type: String,
-
-    },
-    FuelPricePerLitre: {
-      type: String,
-
-    },
-  });
-const CardPaymentSchema = new mongoose.Schema(
-  {
-    Name: {
-      type: String,
-
-    },
-  });
-const UPIPaymentSchema = new mongoose.Schema(
-  {
-    Name: {
-      type: String,
-
-    },
-  });
-const OtherPaymentSchema = new mongoose.Schema(
-  {
-    Name: {
-      type: String,
-
-    },
-  });
-const NozzleSchema = new mongoose.Schema(
-  {
-    NozzleName: {
-      type: String,
-
-    },
-    Reading: {
-      type: String,
-
-    },
-    // Opening: {
-    //   type: String,
-
-    // },
-    // Closing: {
-    //   type: String,
-
-    // },
-    FuelId: {
-      type: String,
-
-    },
-  }
-);
+  // },
+  FuelId: {
+    type: String,
+  },
+});
 const ShiftSchema = new mongoose.Schema({
   ShiftName: {
-    type: String
+    type: String,
   },
   From: {
-    type: String
+    type: String,
   },
   To: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const CreditSalesSchema = new mongoose.Schema({
   CreditId: {
-    type: String
+    type: String,
   },
   Token: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const PaymentSchema = new mongoose.Schema({
   PaymentId: {
-    type: String
+    type: String,
   },
   CustomerID: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const EcommerceSaleSchema = new mongoose.Schema({
   ID: {
     type: String,
   },
   SalesId: {
-    type: String
+    type: String,
   },
   Date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   TotalSaleAmount: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const FuelTestSchema = new Schema({
-  FuelTestId: {
-    type: String
+  Nozzle: {
+    type: String,
   },
   EmployeeName: {
-    type: String
+    type: String,
   },
   Date: {
-    type: String
+    type: String,
+  },
+  Opening: {
+    type: String,
+  },
+  Closing: {
+    type: String,
+  },
+  Product: {
+    type: String,
   },
   Quantity: {
-    type: String
+    type: String,
   },
   TestResult: {
-    type: String
-  }
-})
+    type: String,
+  },
+});
 const EvaporationRateSchema = new Schema({
   EvaporationId: {
-    type: String
+    type: String,
   },
   Tank: {
-    type: String
+    type: String,
   },
-  Tankid: {
-    type: String
+  Date: {
+    type: String,
   },
   InitialQuantity: {
-    type: String
+    type: String,
   },
   ActualQuantity: {
-    type: String
-  }
-})
+    type: String,
+  },
+  TestedBy: {
+    type: String,
+  },
+  Missing: {
+    type: String,
+  },
+});
 const PumpSchema = new Schema(
   {
     PumpName: {
       type: String,
-
     },
     PhoneNumber: {
       type: String,
-
     },
     Address: {
       type: String,
-
     },
     email: {
       type: String,
