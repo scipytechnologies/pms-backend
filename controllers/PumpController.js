@@ -1,13 +1,15 @@
 const Pump = require("../models/PumpSchema")
+const User = require("../models/userschema");
 module.exports = {
     createPump: async (req, res) => {
-        const { PumpName, PhoneNumber, Address, email } = req.body;
+        const { PumpName, PhoneNumber, Address, email, userId } = req.body;
         try {
-            const result = await Pump.create({
+            const result1 = await Pump.create({
                 PumpName,
                 PhoneNumber,
                 Address,
                 email,
+                userId,
                 Tank: [],
                 Employee: [],
                 Fuel: [],
@@ -24,8 +26,14 @@ module.exports = {
                 FuelTesting: [],
                 Evaporation: [],
 
-            });  
-            res.status(200).json({ result });
+            });
+            console.log("userid",userId)
+            const user = await User.findOneAndUpdate(
+                { _id: userId },
+                { $set: { PumpId: result1._id } },
+                { new: true }
+            );
+            res.status(200).json({ user });
         }
         catch (err) {
             res.status(400).json({ err });
