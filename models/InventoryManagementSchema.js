@@ -34,7 +34,7 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
         type: String
     },
     CurrentStock: {
-        type: String
+        type: Number
     },
     Price: {
         type: String

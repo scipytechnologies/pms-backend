@@ -9,6 +9,6 @@ router.get('/getInventoryManagement',InventoryManagementController.getInventoryM
 router.get('/getInventoryManagementById/:id',InventoryManagementController.getInventoryManagementById)
 router.put('/updateInventoryManagement/:id',InventoryManagementController.updateInventoryManagement)
 router.delete('/deleteInventoryManagement/:pumpId/:inventoryId',InventoryManagementController.deleteInventoryManagement)
-router.put('/updatehistory/:id',InventoryManagementController.updatehistory)
+router.put('/updatehistory/:id/:pumpid',InventoryManagementController.updatehistory)
 
 module.exports = router;    

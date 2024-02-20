@@ -117,19 +117,65 @@ module.exports = {
   },
   updatehistory: async (req, res) => {
     const id = req.params.id;
+    const pumpid = req.params.pumpid;
+    const basic = await InventoryManagement.findById(id);
+    let CurrentCount = 0;
+    if (req.body.Mode == "Add to Store") {
+      CurrentCount = parseInt(basic.CurrentStock) - parseInt(req.body.Stock);
+      console.log(CurrentCount);
+    }
+    if (req.body.Mode == "Add New Stock") {
+      CurrentCount = parseInt(basic.CurrentStock) + parseInt(req.body.Stock);
+      console.log(CurrentCount);
+    }
+    if (req.body.Mode == "Damaged") {
+      CurrentCount = parseInt(basic.CurrentStock) - parseInt(req.body.Stock);
+      console.log(CurrentCount);
+    }
     try {
       const historyupdate = await InventoryManagement.findByIdAndUpdate(id, {
         $push: {
-          InventoryHistory: [{
-            Date: req.body.Date,
-            Stock: req.body.Stock,
-            Mode: req.body.Mode,
-            CurrentStock: req.body.CurrentStock,
-            Note: req.body.Note
-          }]
-        }
+          InventoryHistory: [
+            {
+              Date: req.body.Date,
+              Stock: req.body.Stock,
+              Mode: req.body.Mode,
+              CurrentStock: CurrentCount,
+              Note: req.body.Note,
+            },
+          ],
+        },
       });
-      res.status(200).json(historyupdate);
+      try {
+        const update = await InventoryManagement.findByIdAndUpdate(id, {
+          CurrentStock: CurrentCount,
+        });
+        try {
+          const object = await Pump.findById(pumpid);
+          if (!object) {
+            return res.status(404).send("Object not found");
+          } else {
+            const nestedInventory = object.InventoryManagement.find(
+              (nestedObj) => nestedObj.InventoryManagementId == id
+            );
+            if (!nestedInventory) {
+              return res.status(404).send("Nested object not found");
+            }
+            // Update the customer's data with the provided updatedCustomerData
+            const updatedInventoryData = nestedInventory;
+            updatedInventoryData.CurrentStock = CurrentCount;
+            Object.assign(nestedInventory, updatedInventoryData);
+
+            await object.save();
+
+            res.send("Object updated successfully");
+          }
+        } catch (err) {
+          res.status(400).json({ err });
+        }
+      } catch (err) {
+        res.status(400).json({ err });
+      }
     } catch (err) {
       res.status(400).json({ err });
     }

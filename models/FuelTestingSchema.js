@@ -1,35 +1,39 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const FuelTestingSchema = new Schema ({
+const FuelTestingSchema = new Schema(
+  {
     EmployeeName: {
-        type: String
+      type: String,
     },
     EmployeeId: {
-        type: String
+      type: String,
+    },
+    Nozzle: {
+      type: String,
     },
     NozzleId: {
-        type: String
+      type: String,
     },
     Product: {
-        type: String
+      type: String,
     },
     Opening: {
-        type: String
+      type: String,
     },
     Closing: {
-        type: String
+      type: String,
     },
     Quantity: {
-        type: String
+      type: String,
     },
     TestResult: {
-        type: Boolean
+      type: Boolean,
     },
     Date: {
-        type: Date
-    }
-},
-{ timestamps: true }
-)
-module.exports = new mongoose.model("FuelTesting",FuelTestingSchema)
+      type: Date,
+    },
+  },
+  { timestamps: true }
+);
+module.exports = new mongoose.model("FuelTesting", FuelTestingSchema);
