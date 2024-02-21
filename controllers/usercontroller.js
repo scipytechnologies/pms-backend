@@ -10,7 +10,7 @@ module.exports = {
   //  ---------------------------------------- //signup method to add a new user//--------------------------- //
 
   signup: async (req, res) => {
-    const { firstName, lastName, email, password, role, PumpId } = req.body;
+    const { firstName, lastName, email, password, role } = req.body;
 
     const { errors, isValid } = SignupValidation(req.body);
 
@@ -29,10 +29,9 @@ module.exports = {
               lastName,
               email,
               password: hashedpassword,
-              role,
-              PumpId,
+              role
             });
-            res.status(201).json({ message: "user added with success" });
+            res.status(200).json({ result });
           }
         });
       }
@@ -112,7 +111,7 @@ module.exports = {
         PumpId: userdata.PumpId,
       };
       res.status(200).json(data);
-    } catch (error) {}
+    } catch (error) { }
   },
   getColab: async (req, res) => {
     const id = req.params.id;
