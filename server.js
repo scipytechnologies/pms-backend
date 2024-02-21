@@ -27,6 +27,7 @@ const Evaporation = require("./routers/EvaporationRouter")
 
 app.use(cors())
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/customer',CustomerRouter)
 app.use('/user',UserRouter)
 app.use('/employee',EmployeeRouter)

@@ -17,14 +17,12 @@ const productSchema = new mongoose.Schema({
   Brand: {
     type: String,
   },
-
-  //
-
   Price: {
     type: Number,
   },
   OnSale: {
     type: Boolean,
+    default: true,
   },
   Profit: {
     type: Number,

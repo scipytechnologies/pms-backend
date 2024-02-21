@@ -68,6 +68,18 @@ module.exports = {
   },
   updateProduct: async (req, res) => {
     try {
+      const {
+        Name,
+        ProductDescription,
+        Category,
+        Tax,
+        Brand,
+        Price,
+        OnSale,
+        Profit,
+        Margin,
+        SKU,
+      } = req.body;
       const file = req.file;
       const productId = req.params.id;
 
@@ -84,29 +96,47 @@ module.exports = {
 
       await s3Client.send(new PutObjectCommand(putObjectParams));
 
+      const imageURL = `https://s3.amazonaws.com/indhanxbucket/${key}`;
+
       const updatedProduct = {
-        Name: req.body.Name,
-        ProductDescription: req.body.ProductDescription,
-        Category: req.body.Category,
-        Tax: req.body.Tax,
-        Brand: req.body.Brand,
-        Price: req.body.Price,
-        OnSale: req.body.OnSale,
-        Profit: req.body.Profit,
-        Margin: req.body.Margin,
-        SKU: req.body.SKU,
-        imageURL: `https://s3.amazonaws.com/indhanxbucket/${key}`,
+        Name,
+        ProductDescription,
+        Category,
+        Tax,
+        Brand,
+        Price,
+        // OnSale,
+        Profit,
+        Margin,
+        SKU,
+        imageURL,
       };
-
-      const updatedProductResult = await Product.findByIdAndUpdate(
-        productId,
-        updatedProduct,
-        { new: true }
-      );
-
-      res.status(200).json(updatedProductResult);
-    } catch (err) {
-      console.error("Error:", err);
+      try {
+        const result = await Product.findByIdAndUpdate(productId, {
+          $push: {
+            product: [
+              {
+                Name: Name,
+                ProductDescription: ProductDescription,
+                Category: Category,
+                Tax: Tax,
+                Brand: Brand,
+                Price: Price,
+                // OnSale,
+                Profit: Profit,
+                Margin: Margin,
+                SKU: SKU,
+                imageURL: imageURL,
+              },
+            ],
+          },
+        });
+        res.status(200).json({result});
+      } catch (err) {
+        res.status(401).json({ err });
+      }
+    } catch (error) {
+      console.error("Error:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   },
