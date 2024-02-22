@@ -37,7 +37,11 @@ const CustomerSchema = new Schema(
         Note: {
             type: String,
             required: true
-        }
+        },
+        serialNumber: {
+          type: String,
+          required: true,
+        },
     },
     { timestamps: true }
 

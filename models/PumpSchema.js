@@ -54,6 +54,9 @@ const CustomerSchema = new mongoose.Schema(
     },
     CreditBalance: {
       type: Number,
+    },
+    serialNumber: {
+      type: String,
     }
   },
   { timestamps: true }
