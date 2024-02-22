@@ -42,6 +42,9 @@ const EmployeeSchema = new mongoose.Schema({
   },
 });
 const CustomerSchema = new mongoose.Schema({
+  serialNumber: {
+    type: String,
+  },
   CustomerName: {
     type: String,
   },
