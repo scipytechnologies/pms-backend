@@ -41,20 +41,23 @@ const EmployeeSchema = new mongoose.Schema({
     type: String,
   },
 });
-const CustomerSchema = new mongoose.Schema({
-  CustomerName: {
-    type: String,
+const CustomerSchema = new mongoose.Schema(
+  {
+    CustomerName: {
+      type: String,
+    },
+    CustomerId: {
+      type: String,
+    },
+    MobileNo: {
+      type: String,
+    },
+    CreditBalance: {
+      type: Number,
+    }
   },
-  CustomerId: {
-    type: String,
-  },
-  MobileNo: {
-    type: String,
-  },
-  CreditBalance: {
-    type: Number,
-  },
-});
+  { timestamps: true }
+);
 const InventoryManagementSchema = new mongoose.Schema({
   InventoryManagementId: {
     type: String,
