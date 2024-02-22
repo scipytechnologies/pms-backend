@@ -39,7 +39,7 @@ const CustomerSchema = new Schema(
             required: true
         },
         serialNumber: {
-          type: String,
+          type: Number,
           required: true,
         },
     },

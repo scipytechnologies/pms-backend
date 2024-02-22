@@ -56,7 +56,7 @@ const CustomerSchema = new mongoose.Schema(
       type: Number,
     },
     serialNumber: {
-      type: String,
+      type: Number,
     }
   },
   { timestamps: true }

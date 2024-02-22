@@ -15,11 +15,14 @@ module.exports = {
     } = req.body;
     try {
 
-      const latestCustomer = await Customer.findOne().sort({ serialNumber: -1 }).limit(1);
+      const latestCustomer = await Customer.findOne().sort({ createdAt: -1 }).limit(1);
       let serialNumber = 1; // Default value if no customers exist yet
-      if (latestCustomer) {
-        serialNumber = latestCustomer.serialNumber + 1;
+      if (latestCustomer.serialNumber != undefined && latestCustomer) {
+        serialNumber = latestCustomer.serialNumber + 1; 
+        
       }
+
+     console.log(latestCustomer.serialNumber);
 
       const result = await Customer.create({
         Name,
@@ -47,7 +50,7 @@ module.exports = {
             ],
           },
         });
-        res.status(200).json("success");
+        res.status(200).json(serialNumber);
       } catch (err) {
         res.status(401).json({ err });
       }
