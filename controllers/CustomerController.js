@@ -14,15 +14,15 @@ module.exports = {
       Note,
     } = req.body;
     try {
-
-      const latestCustomer = await Customer.findOne().sort({ createdAt: -1 }).limit(1);
+      const latestCustomer = await Customer.find({ PumpId: req.params.id })
+        .sort({ createdAt: -1 })
+        .limit(1);
       let serialNumber = 1; // Default value if no customers exist yet
-      if (latestCustomer.serialNumber != undefined && latestCustomer) {
-        serialNumber = latestCustomer.serialNumber + 1; 
-        
+      if (latestCustomer[0].serialNumber != undefined && latestCustomer) {
+        serialNumber = latestCustomer[0].serialNumber + 1;
       }
 
-     console.log(latestCustomer.serialNumber);
+      console.log(latestCustomer[0].serialNumber);
 
       const result = await Customer.create({
         Name,
@@ -34,14 +34,15 @@ module.exports = {
         CreditBalance,
         CreditLimit,
         Note,
-        serialNumber
+        serialNumber,
+        PumpId: req.params.id,
       });
       try {
         await Pump.findByIdAndUpdate(req.params.id, {
           $push: {
             Customer: [
               {
-                serialNumber:serialNumber,
+                serialNumber: serialNumber,
                 CustomerId: result._id,
                 CustomerName: result.Name,
                 MobileNo: result.MobileNo,

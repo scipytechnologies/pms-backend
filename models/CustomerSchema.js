@@ -41,6 +41,9 @@ const CustomerSchema = new Schema(
         serialNumber: {
           type: Number,
           required: true,
+        }, PumpId: {
+          type: String,
+          required: true,
         },
     },
     { timestamps: true }
