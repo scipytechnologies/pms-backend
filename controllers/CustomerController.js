@@ -13,16 +13,21 @@ module.exports = {
       CreditLimit,
       Note,
     } = req.body;
-    try {
-      const latestCustomer = await Customer.find({ PumpId: req.params.id })
-        .sort({ createdAt: -1 })
-        .limit(1);
-      let serialNumber = 1; // Default value if no customers exist yet
-      if (latestCustomer[0].serialNumber != undefined && latestCustomer) {
-        serialNumber = latestCustomer[0].serialNumber + 1;
-      }
 
-      console.log(latestCustomer[0].serialNumber);
+    try {
+      let serialNumber = 1;
+      try {
+        const latestCustomer = await Customer.findOne({ PumpId: req.params.id })
+          .sort({ createdAt: -1 })
+          .limit(1);
+
+        if (latestCustomer.serialNumber != undefined && latestCustomer) {
+          serialNumber = latestCustomer.serialNumber + 1;
+        }
+        console.log(latestCustomer.serialNumber);
+      } catch (err) {
+        console.log("NO DATA");
+      }
 
       const result = await Customer.create({
         Name,
