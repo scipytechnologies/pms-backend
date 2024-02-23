@@ -37,7 +37,7 @@ module.exports = {
     getProduct: async (req, res) => {
         const id = req.params.id
         try {
-            const result1 = await Product.find()
+            const result1 = await Product.find({PumpID:id})
             res.status(200).json({ result1 });
         }
         catch (err) {
@@ -47,8 +47,8 @@ module.exports = {
     getProductById: async (req, res) => {
         const id = req.params.id
         try {
-            const result1 = await Product.find({PumpID:id})
-            res.status(200).json({ result1 });
+            const result2 = await Product.findById(id)
+            res.status(200).json({ result2 });
         }
         catch (err) {
             res.status(400).json({ err });
