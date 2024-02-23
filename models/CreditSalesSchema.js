@@ -26,6 +26,12 @@ const CreditSalesSchema = new Schema(
     Customer: {
       type: String,
     },
+    serialNumber: {
+        type: String,
+      },
+      PumpId: {
+        type: String,
+      },
   },
   { timestamps: true }
 );

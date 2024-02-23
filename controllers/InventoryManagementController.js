@@ -24,6 +24,7 @@ module.exports = {
         Brand,
         ExpiryDate,
         Description,
+        serialNumber,
         InventoryHistory: [
           {
             Date: Date.now(),
@@ -42,6 +43,7 @@ module.exports = {
                 CategoryName: result.CategoryName,
                 ItemName: result.ItemName,
                 CurrentStock: result.CurrentStock,
+                serialNumber,
               },
             ],
           },

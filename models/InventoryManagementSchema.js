@@ -45,9 +45,13 @@ const inventorymanagementDetailsSchema = new mongoose.Schema({
     ExpiryDate: {
         type: String
     },
+    serialNumber: {
+        type: String,
+      },
     Description: {
         type: String
     },
+
     InventoryHistory: [historySchema]
 },
     { timestamps: true });

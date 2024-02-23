@@ -16,6 +16,9 @@ const PaymentSchema = new Schema({
   PumpID: {
     type: String,
   },
+  serialNumber: {
+    type: String,
+  },
 },
 {timestamps:true});
 module.exports = mongoose.model("Payment", PaymentSchema);

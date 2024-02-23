@@ -33,12 +33,29 @@ module.exports = {
   createPayment: async (req, res) => {
     const { CustomerID, Amount, Balance, Customer, PumpID } = req.body;
     try {
+      let serialNumber = 10000;
+      try {
+        const latestCustomer = await Payment.findOne({
+          PumpId: req.params.id,
+        })
+          .sort({ createdAt: -1 })
+          .limit(1);
+
+        if (latestCustomer.serialNumber != undefined && latestCustomer) {
+          serialNumber = parseInt(latestCustomer.serialNumber) + 1;
+        }
+        console.log(latestCustomer.serialNumber);
+      } catch (err) {
+        console.log("NO DATA");
+      }
       const result = await Payment.create({
         PumpID,
         CustomerID,
         Amount,
         Balance,
         Customer,
+        serialNumber,
+        PumpId:req.params.id
       });
       AddPayment(req.params.id, result);
       res.status(200).json(result);

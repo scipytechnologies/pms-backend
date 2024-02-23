@@ -77,6 +77,9 @@ const InventoryManagementSchema = new mongoose.Schema({
   CurrentStock: {
     type: String,
   },
+  serialNumber: {
+    type: String,
+  },
 });
 const ProductSchema = new mongoose.Schema({
   ProductId: {
@@ -190,6 +193,9 @@ const CreditSalesSchema = new mongoose.Schema({
     type: String,
   },
   Token: {
+    type: String,
+  },
+  serialNumber: {
     type: String,
   },
 });
