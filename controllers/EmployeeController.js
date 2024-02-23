@@ -27,7 +27,7 @@ module.exports = {
     try {
       let serialNumber = 1;
       try {
-        const latestCustomer = await SalesAndBilling.findOne({
+        const latestCustomer = await Employee.findOne({
           PumpId: req.params.id,
         })
           .sort({ createdAt: -1 })
