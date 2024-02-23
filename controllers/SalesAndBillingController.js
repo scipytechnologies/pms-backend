@@ -115,13 +115,15 @@ function generateDailyReportByProduct(transactions, date) {
 }
 function getEmployeeSalesReport(transactions, targetDate) {
   // Filter transactions for the target date
-  const transactionsOnDate = transactions.filter(transaction => transaction.Date === targetDate);
+  const transactionsOnDate = transactions.filter(
+    (transaction) => transaction.Date === targetDate
+  );
 
   // Create a map to store employee-wise sales
   const employeeSalesMap = new Map();
 
   // Calculate sales for each employee
-  transactionsOnDate.forEach(transaction => {
+  transactionsOnDate.forEach((transaction) => {
     const employeeName = transaction.Employee;
     const totalAmount = parseFloat(transaction.TotalAmount);
     const shift = transaction.Shift;
@@ -133,7 +135,9 @@ function getEmployeeSalesReport(transactions, targetDate) {
       employeeSalesMap.get(employeeName).totalSales += totalAmount;
       // Update product quantities, prices, and amounts for the corresponding shift
       const shiftSales = employeeSalesMap.get(employeeName).shiftSales;
-      const existingShift = shiftSales.find(shiftEntry => shiftEntry.shift === shift);
+      const existingShift = shiftSales.find(
+        (shiftEntry) => shiftEntry.shift === shift
+      );
       if (existingShift) {
         existingShift.quantity += parseFloat(product.Quantity);
         existingShift.price += parseFloat(product.Price);
@@ -163,11 +167,14 @@ function getEmployeeSalesReport(transactions, targetDate) {
   });
 
   // Convert the map to an array of objects
-  const employeeSalesReport = Array.from(employeeSalesMap, ([employee, { totalSales, shiftSales }]) => ({
-    employee,
-    totalSales,
-    shiftSales,
-  }));
+  const employeeSalesReport = Array.from(
+    employeeSalesMap,
+    ([employee, { totalSales, shiftSales }]) => ({
+      employee,
+      totalSales,
+      shiftSales,
+    })
+  );
 
   return employeeSalesReport;
 }
@@ -195,7 +202,9 @@ module.exports = {
     try {
       let serialNumber = 10000;
       try {
-        const latestCustomer = await SalesAndBilling.findOne({ PumpId: req.params.id })
+        const latestCustomer = await SalesAndBilling.findOne({
+          PumpId: req.params.id,
+        })
           .sort({ createdAt: -1 })
           .limit(1);
 
@@ -321,7 +330,8 @@ module.exports = {
     } catch (err) {
       res.status(400).json({ err });
     }
-  },  SalesChart: async (req, res) => {
+  },
+  SalesChart: async (req, res) => {
     const id = req.params.id;
     try {
       const allSalesData = await SalesAndBilling.aggregate([
@@ -332,25 +342,27 @@ module.exports = {
         },
         {
           $group: {
-            _id: { $dateToString: { format: "%Y-%m-%d", date: { $toDate: "$Date" } } },
-            totalSales: { $sum: { $toDouble: "$TotalAmount" } }
-          }
+            _id: {
+              $dateToString: { format: "%Y-%m-%d", date: { $toDate: "$Date" } },
+            },
+            totalSales: { $sum: { $toDouble: "$TotalAmount" } },
+          },
         },
-        { $sort: { _id: 1 } } // Sort by date
+        { $sort: { _id: 1 } }, // Sort by date
       ]);
-  
+
       // Extracting dates and sales values
-      const dates = allSalesData.map(entry => entry._id);
-      const totalSales = allSalesData.map(entry => entry.totalSales);
-  
+      const dates = allSalesData.map((entry) => entry._id);
+      const totalSales = allSalesData.map((entry) => entry.totalSales);
+
       res.json({ dates, totalSales });
     } catch (error) {
       console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
+      res.status(500).json({ error: "Internal Server Error" });
     }
   },
   getSalesReport: async (req, res) => {
-    let filter = {};
+    let filter = { PumpId: req.query.pumpID };
     const date = req.query.date;
     const employ = req.query.employ;
     const dateFilter = { Date: { $regex: `^${date}` } };
@@ -376,7 +388,7 @@ module.exports = {
           if (month !== "all" && month !== undefined) {
             if (day !== undefined) {
               const result = getEmployeeSalesReport(transactions, date);
-              const data={report:result}
+              const data = { report: result };
               res.status(200).json(data);
             } else {
               const month = new Date(date).getMonth() + 1;
