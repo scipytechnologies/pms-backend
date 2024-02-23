@@ -49,6 +49,9 @@ const CategorySchema = new mongoose.Schema({
         type: String
     },
     product:[productSchema],
+    PumpID: {
+        type: String
+    }
 }, 
 { timestamps: true });
 

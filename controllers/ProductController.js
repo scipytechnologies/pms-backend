@@ -8,7 +8,8 @@ module.exports = {
                 CategoryName,
                 CategoryImage,
                 Description,
-                product
+                product,
+                PumpID:req.params.id
             });
             try {
                 await Pump.findByIdAndUpdate(req.params.id, {
@@ -46,8 +47,8 @@ module.exports = {
     getProductById: async (req, res) => {
         const id = req.params.id
         try {
-            const result2 = await Product.findById(id)
-            res.status(200).json({ result2 });
+            const result1 = await Product.find({PumpID:id})
+            res.status(200).json({ result1 });
         }
         catch (err) {
             res.status(400).json({ err });
