@@ -83,8 +83,11 @@ const EmployeeSchema = new Schema(
       type: String,
       required: true,
     },
-},
-{ timestamps: true }
+    serialNumber: {
+      type: String,
+    },
+  },
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("employee", EmployeeSchema);

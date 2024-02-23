@@ -193,6 +193,19 @@ module.exports = {
 
     console.log(req.body);
     try {
+      let serialNumber = 1;
+      try {
+        const latestCustomer = await SalesAndBilling.findOne({ PumpId: req.params.id })
+          .sort({ createdAt: -1 })
+          .limit(1);
+
+        if (latestCustomer.serialNumber != undefined && latestCustomer) {
+          serialNumber = parseInt(latestCustomer.serialNumber) + 1;
+        }
+        console.log(latestCustomer.serialNumber);
+      } catch (err) {
+        console.log("NO DATA");
+      }
       const result = await SalesAndBilling.create({
         PumpId,
         Employee,
@@ -208,6 +221,7 @@ module.exports = {
         Product,
         TotalAmountRec,
         Credit,
+        serialNumber,
       });
 
       console.log(result);
@@ -216,6 +230,7 @@ module.exports = {
         await Pump.findByIdAndUpdate(req.params.id, {
           $push: {
             SalesAndBilling: {
+              serialNumber,
               ID: result._id,
               Date: result.Date,
               Employee: result.Employee,

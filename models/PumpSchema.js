@@ -40,6 +40,9 @@ const EmployeeSchema = new mongoose.Schema({
   PhoneNumber: {
     type: String,
   },
+  serialNumber: {
+    type: String,
+  },
 });
 const CustomerSchema = new mongoose.Schema(
   {
@@ -57,7 +60,7 @@ const CustomerSchema = new mongoose.Schema(
     },
     serialNumber: {
       type: Number,
-    }
+    },
   },
   { timestamps: true }
 );
@@ -103,6 +106,9 @@ const SalesAndBillingSchema = new mongoose.Schema({
     type: String,
   },
   TotalAmount: {
+    type: String,
+  },
+  serialNumber: {
     type: String,
   },
 });
