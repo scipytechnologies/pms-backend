@@ -62,6 +62,7 @@ module.exports = {
         IFSCCode,
         Branch,
         serialNumber,
+        PumpId:req.params.id
       });
 
       try {

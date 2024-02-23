@@ -86,6 +86,9 @@ const EmployeeSchema = new Schema(
     serialNumber: {
       type: String,
     },
+    PumpId: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
