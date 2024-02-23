@@ -208,6 +208,9 @@ const EcommerceSaleSchema = new mongoose.Schema({
   SalesId: {
     type: String,
   },
+  serialNumber: {
+    type: String,
+  },
   Date: {
     type: Date,
     default: Date.now,

@@ -193,7 +193,7 @@ module.exports = {
 
     console.log(req.body);
     try {
-      let serialNumber = 1;
+      let serialNumber = 10000;
       try {
         const latestCustomer = await SalesAndBilling.findOne({ PumpId: req.params.id })
           .sort({ createdAt: -1 })

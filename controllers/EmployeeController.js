@@ -25,7 +25,7 @@ module.exports = {
       Branch,
     } = req.body;
     try {
-      let serialNumber = 1;
+      let serialNumber = 10000;
       try {
         const latestCustomer = await Employee.findOne({
           PumpId: req.params.id,
