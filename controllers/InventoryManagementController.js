@@ -14,6 +14,21 @@ module.exports = {
       Description,
     } = req.body;
     try {
+      let serialNumber = 10000;
+      try {
+        const latestCustomer = await InventoryManagement.findOne({
+          PumpId: req.params.id,
+        })
+          .sort({ createdAt: -1 })
+          .limit(1);
+
+        if (latestCustomer.serialNumber != undefined && latestCustomer) {
+          serialNumber = parseInt(latestCustomer.serialNumber) + 1;
+        }
+        console.log(latestCustomer.serialNumber);
+      } catch (err) {
+        console.log("NO DATA");
+      }
       const result = await InventoryManagement.create({
         PumpId,
         CategoryName,

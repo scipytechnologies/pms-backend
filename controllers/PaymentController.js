@@ -36,7 +36,7 @@ module.exports = {
       let serialNumber = 10000;
       try {
         const latestCustomer = await Payment.findOne({
-          PumpId: req.params.id,
+          PumpID: req.params.id,
         })
           .sort({ createdAt: -1 })
           .limit(1);
@@ -55,7 +55,6 @@ module.exports = {
         Balance,
         Customer,
         serialNumber,
-        PumpId:req.params.id
       });
       AddPayment(req.params.id, result);
       res.status(200).json(result);
