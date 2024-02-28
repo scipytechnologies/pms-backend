@@ -89,6 +89,9 @@ const EmployeeSchema = new Schema(
     PumpId: {
       type: String,
     },
+    image: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

@@ -1,5 +1,16 @@
 const Employee = require("../models/EmployeeSchema");
 const Pump = require("../models/PumpSchema");
+const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const fs = require("fs");
+
+const s3Client = new S3Client({
+  region: "ap-south-1", // Add your AWS region
+  credentials: {
+    accessKeyId: "AKIA4MTWGXBS7NF7QF5Z",
+    secretAccessKey: "ipAbi9RTDiTfWXW6EgR3mLmzZQPqxvbvjo5jKD5O",
+  },
+});
+
 module.exports = {
   createEmployee: async (req, res) => {
     const {
@@ -62,7 +73,8 @@ module.exports = {
         IFSCCode,
         Branch,
         serialNumber,
-        PumpId:req.params.id
+        PumpId: req.params.id,
+        image: req.file.originalname,
       });
 
       try {
@@ -73,14 +85,27 @@ module.exports = {
                 EmployeeId: result._id,
                 Designation: result.Designation,
                 DOB: result.DOB,
-                PhoneNumber: result.PhoneNumber,
                 EmployeeName: result.FirstName + " " + result.LastName,
                 serialNumber,
               },
             ],
           },
         });
-        res.status(200).json("success");
+
+        if (!req.file) {
+          return res.status(200).json("success with NO Image");
+        } else {
+          const fileContent = fs.readFileSync(req.file.path);
+          console.log(fileContent);
+          const params = {
+            Bucket: "indhanximages",
+            Key: req.file.originalname,
+            Body: fileContent,
+          };
+          const uploadCommand = new PutObjectCommand(params);
+          await s3Client.send(uploadCommand);
+          res.status(200).json("success with Image");
+        }
       } catch (err) {
         res.status(401).json({ err });
       }
