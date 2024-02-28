@@ -10,7 +10,7 @@ module.exports = {
   //  ---------------------------------------- //signup method to add a new user//--------------------------- //
 
   signup: async (req, res) => {
-    const { firstName, lastName, email, password, role } = req.body;
+    const { firstName, lastName, email, password, role,PumpId } = req.body;
 
     const { errors, isValid } = SignupValidation(req.body);
 
@@ -29,7 +29,8 @@ module.exports = {
               lastName,
               email,
               password: hashedpassword,
-              role
+              role,
+              PumpId
             });
             res.status(200).json({ result });
           }
