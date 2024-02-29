@@ -162,30 +162,29 @@ module.exports = {
     }
   },
   deleteDipStock: async (req, res) => {
-    const pumpId = req.params.pumpId
-    const DipStockid = req.params.id;
+    const { pumpId, id: dipStockId } = req.params;
     try {
-      const deletedDipStock = await DipStock.findByIdAndDelete(DipStockid);
-
+      const [deletedDipStock, pumpUpdate] = await Promise.all([
+        DipStock.findByIdAndDelete(dipStockId).lean(),
+        PumpSchema.findByIdAndUpdate(pumpId, {
+          $pull: { DipStock: { DipStockId: dipStockId } }
+        }, { new: true }) // Setting { new: true } to get the updated document
+      ]);
+  
       if (!deletedDipStock) {
-        return res.status(404).json({ error: "Employee not found" });
+        return res.status(404).json({ error: "DipStock not found" });
       }
-      const pumpUpdate = await PumpSchema.findByIdAndUpdate(
-        pumpId,
-        {
-          $pull: {
-            DipStock: { DipStockId: deletedDipStock._id }
-          }
-        }
-      );
-
+  
       if (!pumpUpdate) {
         return res.status(500).json({ error: "Failed to update Pump collection" });
       }
-      res.status(200).json({ deletedEmployee });
+  
+      res.status(200).json({ deletedDipStock });
+    } catch (error) {
+      console.error("Error deleting DipStock:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     }
-    catch (err) {
-      res.status(400).json({ err });
-    }
-  },
+  }
+  
+
 };
