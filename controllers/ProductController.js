@@ -1,5 +1,17 @@
 const Product = require("../models/ProductSchema")
 const Pump = require("../models/PumpSchema")
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const fs = require("fs");
+
+
+const s3Client = new S3Client({
+    region: "ap-south-1", // Add your AWS region
+    credentials: {
+      accessKeyId: "AKIA4MTWGXBS7NF7QF5Z",
+      secretAccessKey: "ipAbi9RTDiTfWXW6EgR3mLmzZQPqxvbvjo5jKD5O",
+    },
+  });
+  
 module.exports = {
     createProduct: async (req, res) => {
         const { CategoryName, CategoryImage, Description, product } = req.body;
@@ -69,7 +81,8 @@ module.exports = {
                 OnSale: req.body.OnSale,
                 Profit: req.body.Profit,
                 Margin: req.body.Margin,
-                SKU: req.body.SKU
+                SKU: req.body.SKU,
+                image: req.file.originalname
             };
 
             const updatedCategory = await Product.findByIdAndUpdate(categoryId, {
@@ -77,8 +90,20 @@ module.exports = {
                     product: newProduct
                 }
             }, { new: true });
-
-            res.status(200).json(updatedCategory);
+            if (!req.file) {
+                res.status(200).json(updatedCategory);
+              } else {
+                const fileContent = fs.readFileSync(req.file.path);
+                console.log(fileContent);
+                const params = {
+                  Bucket: "indhanximages",
+                  Key: req.file.originalname,
+                  Body: fileContent,
+                };
+                const uploadCommand = new PutObjectCommand(params);
+                await s3Client.send(uploadCommand);
+                res.status(200).json(updatedCategory);
+              }
         } catch (err) {
             res.status(401).json({ err });
         }

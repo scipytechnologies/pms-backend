@@ -35,6 +35,9 @@ const productSchema = new mongoose.Schema({
   SKU: {
     type: String,
   },
+  image: {
+    type: String,
+  },
 });
 const CategorySchema = new mongoose.Schema(
   {
