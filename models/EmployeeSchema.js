@@ -25,7 +25,7 @@ const EmployeeSchema = new Schema(
     },
     TemporaryAddress: {
       type: String,
-      required: true,
+     
     },
     PermanentAddress: {
       type: String,
@@ -37,23 +37,23 @@ const EmployeeSchema = new Schema(
     },
     VoterId: {
       type: String,
-      required: true,
+     
     },
     PANCardNumber: {
       type: String,
-      required: true,
+ 
     },
     PFNumber: {
       type: String,
-      required: true,
+   
     },
     ESINumber: {
       type: String,
-      required: true,
+   
     },
     UAN: {
       type: String,
-      required: true,
+      
     },
     Designation: {
       type: String,
@@ -61,27 +61,27 @@ const EmployeeSchema = new Schema(
     },
     Department: {
       type: String,
-      required: true,
+
     },
     Salary: {
       type: String,
-      required: true,
+      
     },
     Note: {
       type: String,
-      required: true,
+     
     },
     AccountNumber: {
       type: String,
-      required: true,
+      
     },
     IFSCCode: {
       type: String,
-      required: true,
+      
     },
     Branch: {
       type: String,
-      required: true,
+     
     },
     serialNumber: {
       type: String,

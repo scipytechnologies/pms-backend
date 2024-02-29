@@ -1,6 +1,6 @@
 const Employee = require("../models/EmployeeSchema");
 const Pump = require("../models/PumpSchema");
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const fs = require("fs");
 
 const s3Client = new S3Client({
@@ -86,6 +86,7 @@ module.exports = {
                 Designation: result.Designation,
                 DOB: result.DOB,
                 EmployeeName: result.FirstName + " " + result.LastName,
+                PhoneNumber : result.PhoneNumber,
                 serialNumber,
               },
             ],
@@ -233,6 +234,37 @@ module.exports = {
       res.status(200).json({ deletedEmployee });
     } catch (err) {
       res.status(400).json({ err });
+    }
+  },
+  getimage: async (req, res) => { // Get the folder name from the request URL
+    const key = req.params.key // Get the image key from the request URL
+
+    // Set up the parameters for retrieving the image from S3
+    const getObjectParams = {
+      Bucket: 'indhanximages',
+      Key: key
+    };
+
+    try {
+      // Retrieve the image from S3
+      const data = await s3Client.send(new GetObjectCommand(getObjectParams));
+
+      // Convert the image data to a Buffer
+      const imageBuffer = await new Promise((resolve, reject) => {
+        const chunks = [];
+        data.Body.on('data', (chunk) => chunks.push(chunk));
+        data.Body.on('end', () => resolve(Buffer.concat(chunks)));
+        data.Body.on('error', (error) => reject(error));
+      });
+
+      // Set the appropriate content type for the response
+      res.setHeader('Content-Type', data.ContentType);
+
+      // Send the image data in the response
+      res.send(imageBuffer);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: 'Failed to retrieve image from S3' });
     }
   },
 };

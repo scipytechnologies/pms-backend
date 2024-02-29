@@ -12,5 +12,6 @@ router.get('/getemployee',Employeecontroller.getEmployee)
 router.get('/getemployeebyid/:id',Employeecontroller.getEmployeeById)
 router.put('/updateemployee/:id/:pumpid',Employeecontroller.updateEmployee)
 router.delete('/deleteemployee/:pumpId/:employeeId',Employeecontroller.deleteEmployee)
+router.get('/getImage/:key',Employeecontroller.getimage)
 
 module.exports = router;                                                 
