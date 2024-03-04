@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 // Load User model
 const User = require("../models/userschema");
+const Token = require("../models/Token");
 // Load input validation
 const SignupValidation = require("../Validator/SignupValidation");
 const SigninValidation = require("../Validator/SigninValidation");
@@ -144,6 +145,9 @@ module.exports = {
     }
   },
   getGitToken: async (req, res) => {
-      res.status(200).json("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");
+    try {
+      const data = await Token.findOne();
+      res.status(200).json(data.value);
+    } catch (error) { }
   },
 };
