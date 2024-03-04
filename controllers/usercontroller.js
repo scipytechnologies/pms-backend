@@ -144,6 +144,6 @@ module.exports = {
     }
   },
   getGitToken: async (req, res) => {
-      res.status(200).json("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");
+      res.status(200).json("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");
   },
 };
