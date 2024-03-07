@@ -42,7 +42,6 @@ module.exports = {
         serialNumber,
         InventoryHistory: [
           {
-            Date: Date.now(),
             Stock: CurrentStock,
             Mode: "Initial Stock",
             CurrentStock: CurrentStock,
