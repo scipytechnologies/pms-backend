@@ -1,5 +1,32 @@
 const Pump = require("../models/PumpSchema")
 const User = require("../models/userschema");
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+    host: "smtpout.secureserver.net",
+    port: 465,
+    secure: true, // Use `true` for port 465, `false` for all other ports
+    auth: {
+      user: "support@indhanx.com",
+      pass: "Pmsmailbox@123",
+    },
+  });
+
+  async function mail() {
+    // send mail with defined transport object
+    const info = await transporter.sendMail({
+      from: 'support@indhanx.com', // sender address
+      to: "sooraj.scipy@gmail.com", // list of receivers
+      subject: "Fuel Price Changed", // Subject line
+      text: "Fuel Price has been change by someone in your system, Please verify the price update otherwise it will lead to miss calcution and may cause financial loss...", // plain text body
+      html: "<b>Fuel Price Changed</b>", // html body
+    });
+  
+    console.log("Message sent: %s", info.messageId);
+    // Message sent: <d786aa62-4e0a-070a-47ed-0b0666549519@ethereal.email>
+  }
+
+
 module.exports = {
     createPump: async (req, res) => {
         const { PumpName, PhoneNumber, Address, email, userId } = req.body;
@@ -201,7 +228,7 @@ module.exports = {
             if (!result) {
                 return res.status(404).json({ error: 'Pump or Fuel not found' });
             }
-
+            mail().catch(console.error);
             res.status(200).json(result);
         } catch (error) {
             console.error(error);

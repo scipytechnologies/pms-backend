@@ -7,11 +7,22 @@ const Token = require("../models/Token");
 // Load input validation
 const SignupValidation = require("../Validator/SignupValidation");
 const SigninValidation = require("../Validator/SigninValidation");
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: "sooraj.scipy@gmail.com",
+    pass: "jn7jnAPss4f63QBp6D",
+  },
+});
 module.exports = {
   //  ---------------------------------------- //signup method to add a new user//--------------------------- //
 
   signup: async (req, res) => {
-    const { firstName, lastName, email, password, role,PumpId } = req.body;
+    const { firstName, lastName, email, password, role, PumpId } = req.body;
 
     const { errors, isValid } = SignupValidation(req.body);
 
@@ -31,7 +42,7 @@ module.exports = {
               email,
               password: hashedpassword,
               role,
-              PumpId
+              PumpId,
             });
             res.status(200).json({ result });
           }
@@ -113,7 +124,7 @@ module.exports = {
         PumpId: userdata.PumpId,
       };
       res.status(200).json(data);
-    } catch (error) { }
+    } catch (error) {}
   },
   getColab: async (req, res) => {
     const id = req.params.id;
@@ -148,6 +159,12 @@ module.exports = {
     try {
       const data = await Token.findOne();
       res.status(200).json(data.value);
-    } catch (error) { }
+    } catch (error) {console.log(error);}
+  },
+  changePassword: async (req, res) => {
+    try {
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
